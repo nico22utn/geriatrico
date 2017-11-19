@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sistemainterno</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.connection.password">root</property>
+    <property name="hibernate.hbm2ddl.auto">validate</property>
+    <property name="hbm2ddl.auto">update</property>
+    <property name="hibernate.show_sql">true</property>
+    <mapping resource="TipoImpuestoAtributo.hbm.xml"/>
+    <mapping resource="Atributo.hbm.xml"/>
+    <mapping resource="TipoDato.hbm.xml"/>
+    <mapping resource="Comision.hbm.xml"/>
+    <mapping resource="TipoImpuesto.hbm.xml"/>
+    <mapping resource="ComisionEmpresaSistema.hbm.xml"/>
+    <mapping resource="EstadoComisionEmpresaSistema.hbm.xml"/>
+    <mapping resource="ComisionEmpresaSistemaEstado.hbm.xml"/>
+    <mapping resource="ParametroPorEditable.hbm.xml"/>
+    <mapping resource="ParametroPorPeriodicidad.hbm.xml"/>
+    <mapping resource="Rol.hbm.xml"/>
+    <mapping resource="RolOpcion.hbm.xml"/>
+    <mapping resource="Usuario.hbm.xml"/>
+    <mapping resource="Empresa.hbm.xml"/>
+    <mapping resource="TipoEmpresa.hbm.xml"/>
+    <mapping resource="EmpresaTipoImpuesto.hbm.xml"/>
+    <mapping resource="EmpresaTipoImpuestoAtributo.hbm.xml"/>
+    <mapping resource="Operacion.hbm.xml"/>
+    <mapping resource="Cuenta.hbm.xml"/>
+    <mapping resource="Cliente.hbm.xml"/>
+    <mapping resource="TipoCuenta.hbm.xml"/>
+    <mapping resource="Banco.hbm.xml"/>
+    <mapping resource="ParametroConexion.hbm.xml"/>
+    <mapping resource="SistemaBanco.hbm.xml"/>
+    <mapping resource="OperacionAtributo.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>
