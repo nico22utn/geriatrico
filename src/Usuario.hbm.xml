@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+    <hibernate-mapping>
+  <class catalog="SistemaInterno" name="Modelo.Usuario" optimistic-lock="version" table="usuario">
+    <id name="OID" type="string">
+      <column length="32" name="OIDAtributo"/>
+      <generator class="uuid"/>
+    </id>
+    <property name="nombreUsuario" type="string">
+      <column name="nombreUsuario"/>
+    </property>
+    <property name="password" type="string">
+      <column name="password"/>
+    </property>
+  </class>
+</hibernate-mapping>
+
+

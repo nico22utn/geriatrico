@@ -6,6 +6,7 @@
 package Controlador.Persistencia;
 
 import DTO.DTOCriterio;
+import Modelo.Usuario;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,10 +26,12 @@ public class PruebaGenerarTablas {
             HibernateUtil.getSession().beginTransaction();
          
             
+              Usuario usuario = new Usuario();
               
+              usuario.setNombreUsuario("Pepito");
+              usuario.setPassword("123456");
               
-              
-            
+              FachadaInterna.getInstancia().guardar(usuario);
             
             
             

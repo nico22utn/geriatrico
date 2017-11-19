@@ -63,7 +63,7 @@ public class FachadaInterna
                         String lista = String.valueOf(atributo.charAt(0))
                                 .toLowerCase() + atributo.substring(1) + "List"; //materiaList, detalleReposicionList
                         cr.createAlias(lista, "lista")
-                                .add(Restrictions.conjunction(Restrictions.eq("lista.OID" + claseABuscar, ((Entidades.Entidad) valor).getOID())));
+                                .add(Restrictions.conjunction(Restrictions.eq("lista.OID" + claseABuscar, ((Modelo.Entidad) valor).getOID())));
                         break;
                 }
             }
@@ -115,7 +115,7 @@ public class FachadaInterna
                         String lista = String.valueOf(atributo.charAt(0))
                                 .toLowerCase() + atributo.substring(1) + "List"; //materiaList, detalleReposicionList
                         cr.createAlias(lista, "lista")
-                                .add(Restrictions.conjunction(Restrictions.eq("lista.OID" + claseABuscar, ((Entidades.Entidad) valor).getOID())));
+                                .add(Restrictions.conjunction(Restrictions.eq("lista.OID" + claseABuscar, ((Modelo.Entidad) valor).getOID())));
                         break;
                 }
             }
