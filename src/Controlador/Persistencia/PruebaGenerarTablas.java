@@ -24,14 +24,10 @@ public class PruebaGenerarTablas {
 
         try {
             HibernateUtil.getSession().beginTransaction();
-         
             
-              Usuario usuario = new Usuario();
-              
-              usuario.setNombreUsuario("Pepito");
-              usuario.setPassword("123456");
-              
-              FachadaInterna.getInstancia().guardar(usuario);
+      
+            
+
             
             
             
