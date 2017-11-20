@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+
 import Vistas.RegistrarUsuario.InterfazRegistrarUsuario;
 
 /**
@@ -124,7 +125,8 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void botonIngresarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarSistemaActionPerformed
-        // TODO add your handling code here:
+
+        
     }//GEN-LAST:event_botonIngresarSistemaActionPerformed
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed

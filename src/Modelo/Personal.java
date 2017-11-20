@@ -40,10 +40,19 @@ public class Personal implements Serializable{
     private String nombre;
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="idEspecialidad")
-    private Especialidad especialidad;
+    private Especialidad especialidad;//Esta mal esto!!!!!!!!!!!!
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="idArea")
     private Area area;
+    private Rol rol;
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
     public Personal() {
     }
 

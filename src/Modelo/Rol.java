@@ -28,6 +28,14 @@ public class Rol implements Serializable {
     private String nombreRol;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Especialidad especialidad;
+
+    public Especialidad getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
+    }
     
     public Rol() {
     }
