@@ -9,9 +9,13 @@ package Modelo;
  *
  * @author User
  */
-public class TipoPrioridad extends Entidad {
+public class EstadoDetalleConsulta extends Entidad{
+    
     private String nombre;
 
+    public EstadoDetalleConsulta() {
+    }
+    
     @Override
     public String getOID() {
         return super.OID;
@@ -19,10 +23,7 @@ public class TipoPrioridad extends Entidad {
 
     @Override
     public void setOID(String OID) {
-        super.OID = OID;
-    }
-
-    public TipoPrioridad() {
+        super.OID=OID;
     }
 
     public String getNombre() {

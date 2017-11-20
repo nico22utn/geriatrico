@@ -9,9 +9,12 @@ package Modelo;
  *
  * @author User
  */
-public class TipoPrioridad extends Entidad {
-    private String nombre;
+public class Area extends Entidad{
+    private String nombreArea;
 
+    public Area() {
+    }
+    
     @Override
     public String getOID() {
         return super.OID;
@@ -19,20 +22,16 @@ public class TipoPrioridad extends Entidad {
 
     @Override
     public void setOID(String OID) {
-        super.OID = OID;
+        super.OID=OID;
     }
 
-    public TipoPrioridad() {
+    public String getNombreArea() {
+        return nombreArea;
     }
 
-    public String getNombre() {
-        return nombre;
+    public void setNombreArea(String nombreArea) {
+        this.nombreArea = nombreArea;
     }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-    
     
     
 }
