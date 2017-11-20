@@ -5,6 +5,8 @@
  */
 package Vistas;
 
+import Vistas.RegistrarUsuario.InterfazRegistrarUsuario;
+
 /**
  *
  * @author Maxi
@@ -126,7 +128,10 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_botonIngresarSistemaActionPerformed
 
     private void botonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarActionPerformed
-        // TODO add your handling code here:
+        InterfazRegistrarUsuario i = new InterfazRegistrarUsuario();
+        this.setVisible(false);
+        i.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_botonRegistrarActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
