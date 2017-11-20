@@ -7,10 +7,17 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sistemainterno</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.current_session_context_class">thread</property>
-    <property name="hibernate.connection.password">root</property>
+    <property name="hibernate.connection.password">1234</property>
     <property name="hibernate.hbm2ddl.auto">validate</property>
     <property name="hbm2ddl.auto">update</property>
     <property name="hibernate.show_sql">true</property>
-    <mapping resource="Usuario.hbm.xml"/>
+    <mapping class="Modelo.Usuario"/>
+    <mapping class="Modelo.TipoConsulta"/>
+    <mapping class="Modelo.Consulta"/>
+    <mapping class="Modelo.Especialidad"/>
+    <mapping class="Modelo.Rol"/>
+    <mapping class="Modelo.Area"/>
+    <mapping class="Modelo.Personal"/>
+    <mapping class="Modelo.Usuario"/>
   </session-factory>
 </hibernate-configuration>

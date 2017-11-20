@@ -5,15 +5,31 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 /**
  *
  * @author Maxi
  */
-public class Usuario extends Entidad {
-    
+@Entity
+@Table(name="usuario")
+public class Usuario implements Serializable {
+    @Id @GeneratedValue
+    private Long id;
+    @Column(name="nombreUsuario")
     private String nombreUsuario;
+    @Column(name="password")
     private String password;
-
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Personal personal;
     public String getNombreUsuario() {
         return nombreUsuario;
     }
@@ -30,18 +46,22 @@ public class Usuario extends Entidad {
         this.password = password;
     }
 
-    @Override
-    public String getOID() {
-        
-    return super.OID;
-    
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public void setOID(String OID) {
-       
-       super.OID = OID;
+    public Personal getPersonal() {
+        return personal;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setPersonal(Personal personal) {
+        this.personal = personal;
+    }
+    
     
     
 }

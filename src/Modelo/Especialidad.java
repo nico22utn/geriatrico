@@ -5,25 +5,27 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author User
  */
-public class Especialidad extends Entidad{
+@Entity
+@Table(name="especialidad")
+public class Especialidad implements Serializable{
 
+    @Id @GeneratedValue
+    private Long id;
+    @Column(name="nombre")
     private String nombreEspecialidad;
     
     public Especialidad() {
-    }
-
-    @Override
-    public String getOID() {
-        return super.OID;
-    }
-
-    @Override
-    public void setOID(String OID) {
-        super.OID=OID;
     }
 
     public String getNombreEspecialidad() {

@@ -6,10 +6,13 @@
 package Modelo;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -17,22 +20,16 @@ import javax.persistence.Table;
  * @author User
  */
 @Entity
-@Table(name="area")
-public class Area implements Serializable{
+@Table(name="rol")
+public class Rol implements Serializable {
     @Id @GeneratedValue
     private Long id;
     @Column(name="nombre")
-    private String nombreArea;
-
-    public Area() {
-    }
-
-    public String getNombreArea() {
-        return nombreArea;
-    }
-
-    public void setNombreArea(String nombreArea) {
-        this.nombreArea = nombreArea;
+    private String nombreRol;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Especialidad especialidad;
+    
+    public Rol() {
     }
 
     public Long getId() {
@@ -41,6 +38,14 @@ public class Area implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNombreRol() {
+        return nombreRol;
+    }
+
+    public void setNombreRol(String nombreRol) {
+        this.nombreRol = nombreRol;
     }
     
     
