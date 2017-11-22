@@ -37,7 +37,7 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setExtendedState(MAXIMIZED_BOTH);
-        textodeBienvenida.setText("Bienvenido " + usuario.getPersonal().getNombre() + " " + usuario.getPersonal().getApellido() + " Al area de " + usuario.getPersonal().getArea().getNombreArea());
+       // textodeBienvenida.setText("Bienvenido " + usuario.getPersonal().getNombre() + " " + usuario.getPersonal().getApellido() + " Al area de " + usuario.getPersonal().getArea().getNombreArea());
         textFechaHoy.setText(formateador.format(fechahoy));
        
 

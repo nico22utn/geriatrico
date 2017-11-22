@@ -5,19 +5,22 @@
  */
 package Vistas.RegistrarUsuario;
 
+import Controlador.ControladorRegistrarUsuario.ControladorRegistrarUsuario;
 import Vistas.Login;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Maxi
  */
 public class InterfazRegistrarUsuario extends javax.swing.JFrame {
-
+ControladorRegistrarUsuario controlador;
     /**
      * Creates new form InterfazRegistrarUsuario
      */
     public InterfazRegistrarUsuario() {
         initComponents();
+        controlador = new ControladorRegistrarUsuario();
         this.setLocationRelativeTo(null);
     }
 
@@ -99,7 +102,16 @@ public class InterfazRegistrarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_TextDNIActionPerformed
 
     private void botonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSiguienteActionPerformed
-        // TODO add your handling code here:
+       if(controlador.verificarPersonal(TextDNI.getText())){
+           Interfaz2RegistrarUsuario i = new Interfaz2RegistrarUsuario(TextDNI.getText(), controlador);
+           this.setVisible(false);
+           i.setVisible(true);
+           this.dispose();
+       }else{
+           
+           JOptionPane.showMessageDialog(null, "El DNI que usted ingreso es incorrecto, o usted no esta dado de alta en el sistema. Por favor comuniquese con el Administrador", "Error", 0);
+
+       }
     }//GEN-LAST:event_botonSiguienteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

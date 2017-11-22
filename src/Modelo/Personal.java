@@ -44,8 +44,6 @@ public class Personal implements Serializable{
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="idArea")
     private Area area;
-
-    
     
     public Rol getRol() {
         return rol;
@@ -88,7 +86,6 @@ public class Personal implements Serializable{
     public void setDni(String dni) {
         this.dni = dni;
     }
-
     public void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
