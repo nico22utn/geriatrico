@@ -30,6 +30,10 @@ public class Usuario implements Serializable {
     private String password;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Personal personal;
+
+    public Usuario() {
+    }
+    
     public String getNombreUsuario() {
         return nombreUsuario;
     }

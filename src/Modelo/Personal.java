@@ -39,13 +39,14 @@ public class Personal implements Serializable{
     @Column(name="nombre")
     private String nombre;
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="idEspecialidad")
-    private Especialidad especialidad;//Esta mal esto!!!!!!!!!!!!
+    @JoinColumn(name="idRol")
+    private Rol rol;
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="idArea")
     private Area area;
-    private Rol rol;
 
+    
+    
     public Rol getRol() {
         return rol;
     }
@@ -62,10 +63,6 @@ public class Personal implements Serializable{
 
     public String getDni() {
         return dni;
-    }
-
-    public Especialidad getEspecialidad() {
-        return especialidad;
     }
 
     public Date getFechaAlta() {
@@ -90,10 +87,6 @@ public class Personal implements Serializable{
 
     public void setDni(String dni) {
         this.dni = dni;
-    }
-
-    public void setEspecialidad(Especialidad especialidad) {
-        this.especialidad = especialidad;
     }
 
     public void setFechaAlta(Date fechaAlta) {
