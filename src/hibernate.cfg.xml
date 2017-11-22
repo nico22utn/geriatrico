@@ -12,8 +12,6 @@
     <property name="hbm2ddl.auto">update</property>
     <property name="hibernate.show_sql">true</property>
     <mapping class="Modelo.Usuario"/>
-    <mapping class="Modelo.TipoConsulta"/>
-    <mapping class="Modelo.Consulta"/>
     <mapping class="Modelo.Especialidad"/>
     <mapping class="Modelo.Rol"/>
     <mapping class="Modelo.Area"/>

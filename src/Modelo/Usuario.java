@@ -6,6 +6,7 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +29,26 @@ public class Usuario implements Serializable {
     private String nombreUsuario;
     @Column(name="password")
     private String password;
+    @Column(name="fechaAlta")
+    private Date fechaAlta;
+    @Column(name="fechaBaja")
+    private Date fechaBaja;
+
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+
+    public Date getFechaBaja() {
+        return fechaBaja;
+    }
+
+    public void setFechaBaja(Date fechaBaja) {
+        this.fechaBaja = fechaBaja;
+    }
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Personal personal;
     public String getNombreUsuario() {
