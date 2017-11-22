@@ -6,20 +6,24 @@
 package Vistas;
 
 
+import Controlador.ControladorIniciarSesion.ControladorIniciarSesion;
+import Vistas.PantallaPrincipal.InterfazPantallaPrincipal;
 import Vistas.RegistrarUsuario.InterfazRegistrarUsuario;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Maxi
  */
 public class Login extends javax.swing.JFrame {
-
+ControladorIniciarSesion controlador;
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
+        controlador = new ControladorIniciarSesion();
     }
 
     /**
@@ -36,12 +40,12 @@ public class Login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        textNombreUsuario = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         botonIngresarSistema = new javax.swing.JButton();
         botonRegistrar = new javax.swing.JButton();
         botonSalir = new javax.swing.JButton();
+        textContraseña = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,17 +81,10 @@ public class Login extends javax.swing.JFrame {
 
         jLabel5.setText("Nombre Usuario: ");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, -1, 20));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 150, -1));
+        getContentPane().add(textNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 150, -1));
 
         jLabel6.setText("Contraseña:");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, -1, 20));
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 150, -1));
 
         botonIngresarSistema.setText("Ingresar al sistema");
         botonIngresarSistema.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +110,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(botonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, -1, -1));
+        getContentPane().add(textContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 150, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/imagenes/background-1591227_960_720.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 486, 424));
@@ -120,12 +118,20 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
     private void botonIngresarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarSistemaActionPerformed
-
+        if(controlador.validarUsuario(textNombreUsuario.getText(), textContraseña.getText())){
+            
+            InterfazPantallaPrincipal i = new InterfazPantallaPrincipal(controlador.loguear(textNombreUsuario.getText()));
+            i.setVisible(true);
+            this.setVisible(false);
+            this.dispose();
+            
+        }else{
+            
+            JOptionPane.showMessageDialog(null, "El nombre de usuario o contraseña son incorrecto, ingrese nuevamente", "Error", 0);
+            textNombreUsuario.setText("");
+            textContraseña.setText("");
+        }
         
     }//GEN-LAST:event_botonIngresarSistemaActionPerformed
 
@@ -186,7 +192,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JPasswordField textContraseña;
+    private javax.swing.JTextField textNombreUsuario;
     // End of variables declaration//GEN-END:variables
 }

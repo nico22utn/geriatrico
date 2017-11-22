@@ -39,11 +39,10 @@ public class Personal implements Serializable{
     @Column(name="nombre")
     private String nombre;
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="idEspecialidad")
-    private Especialidad especialidad;//Esta mal esto!!!!!!!!!!!!
-    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="idArea")
     private Area area;
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="idRol")
     private Rol rol;
 
     public Rol getRol() {
@@ -64,9 +63,7 @@ public class Personal implements Serializable{
         return dni;
     }
 
-    public Especialidad getEspecialidad() {
-        return especialidad;
-    }
+
 
     public Date getFechaAlta() {
         return fechaAlta;
@@ -92,9 +89,7 @@ public class Personal implements Serializable{
         this.dni = dni;
     }
 
-    public void setEspecialidad(Especialidad especialidad) {
-        this.especialidad = especialidad;
-    }
+
 
     public void setFechaAlta(Date fechaAlta) {
         this.fechaAlta = fechaAlta;
