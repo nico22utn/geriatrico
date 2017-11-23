@@ -5,17 +5,23 @@
  */
 package Vistas.ABMRol;
 
+import Controlador.ControladorABMRol.ControladorABMRol;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Maxi
  */
 public class modificarRol extends javax.swing.JDialog {
-
+private ControladorABMRol controlador;
+private Long idRol;
     /**
      * Creates new form modificarRol
      */
-    public modificarRol(java.awt.Frame parent, boolean modal) {
+    public modificarRol(java.awt.Frame parent, boolean modal,Long idRol,ControladorABMRol controlador) {
         super(parent, modal);
+        this.controlador = controlador;
+        this.idRol = idRol;
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -48,6 +54,11 @@ public class modificarRol extends javax.swing.JDialog {
         });
 
         jButton1.setText("Modificar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,6 +98,16 @@ public class modificarRol extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_textNombreRolActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+                if(controlador.iniciarModificacion(idRol,textNombreRol.getText())){
+            JOptionPane.showMessageDialog(null, "El rol se modifico existosamente", "Exito", 1);
+            this.dispose();
+        }else{
+            
+            JOptionPane.showMessageDialog(null, "Existe un Rol con ese nombre, por favor ingrese otro", "Error", 0);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -117,14 +138,7 @@ public class modificarRol extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                modificarRol dialog = new modificarRol(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+
             }
         });
     }

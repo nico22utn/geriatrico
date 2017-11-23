@@ -6,12 +6,16 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,18 +28,21 @@ import javax.persistence.Table;
 public class Rol implements Serializable {
     @Id @GeneratedValue
     private Long id;
-    @Column(name="nombre")
+    @Column(name="nombreRol")
     private String nombreRol;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Especialidad especialidad;
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="RolEspecializacion",joinColumns={@JoinColumn(name="idRol")},inverseJoinColumns={@JoinColumn(name="idEspecialidad")})
+    private List<Especialidad> listespecialidad;
 
-    public Especialidad getEspecialidad() {
-        return especialidad;
+    public List<Especialidad> getListespecialidad() {
+        return listespecialidad;
     }
 
-    public void setEspecialidad(Especialidad especialidad) {
-        this.especialidad = especialidad;
+    public void setListespecialidad(List<Especialidad> listespecialidad) {
+        this.listespecialidad = listespecialidad;
     }
+
+
     
     public Rol() {
     }

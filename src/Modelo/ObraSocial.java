@@ -21,7 +21,7 @@ import javax.persistence.Table;
 public class ObraSocial implements Serializable{
     @Id @GeneratedValue
     private Long id;
-    @Column
+    @Column(name="nombreObraSocial")
     private String nombreObraSocial;
 
     public ObraSocial() {

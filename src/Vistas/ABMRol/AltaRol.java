@@ -5,18 +5,22 @@
  */
 package Vistas.ABMRol;
 
+import Controlador.ControladorABMRol.ControladorABMRol;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Maxi
  */
 public class AltaRol extends javax.swing.JDialog {
-
+ControladorABMRol controlador;
     /**
      * Creates new form AltaRol
      */
-    public AltaRol(java.awt.Frame parent, boolean modal) {
+    public AltaRol(java.awt.Frame parent, boolean modal,ControladorABMRol controlador) {
         super(parent, modal);
         initComponents();
+        this.controlador = controlador;
         this.setLocationRelativeTo(null);
     }
 
@@ -49,6 +53,11 @@ public class AltaRol extends javax.swing.JDialog {
         });
 
         jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,6 +95,16 @@ public class AltaRol extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(controlador.iniciarAlta(jTextField1.getText())){
+            JOptionPane.showMessageDialog(null, "Se creo un nuevo Rol", "Exito", 1);
+            this.dispose();
+        }else{
+            
+            JOptionPane.showMessageDialog(null, "Existe un Rol con ese nombre, por favor ingrese otro", "Error", 0);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -116,14 +135,7 @@ public class AltaRol extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AltaRol dialog = new AltaRol(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+
             }
         });
     }
