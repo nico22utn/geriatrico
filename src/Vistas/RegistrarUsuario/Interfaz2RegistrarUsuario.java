@@ -134,6 +134,8 @@ private ControladorRegistrarUsuario controlador;
             
         }else{
             JOptionPane.showMessageDialog(null, "las contraseñas no coinciden, ingrse nuevamente", "Error", 0);
+            textPassword1.setText("");
+            textPassword2.setText("");
         }
         
     }//GEN-LAST:event_botonRegistrarseActionPerformed
