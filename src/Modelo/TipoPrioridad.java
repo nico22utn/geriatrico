@@ -5,26 +5,36 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author User
  */
-public class TipoPrioridad extends Entidad {
+@Entity
+@Table(name="tipoPrioridad")
+public class TipoPrioridad implements Serializable{
+    @Id @GeneratedValue
+    private Long id;
+    @Column
     private String nombre;
-
-    @Override
-    public String getOID() {
-        return super.OID;
-    }
-
-    @Override
-    public void setOID(String OID) {
-        super.OID = OID;
-    }
-
+    
     public TipoPrioridad() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public String getNombre() {
         return nombre;
     }
