@@ -5,26 +5,36 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  *
  * @author User
  */
-public class ObraSocial extends Entidad{
+@Entity
+@Table(name="obraSocial")
+public class ObraSocial implements Serializable{
+    @Id @GeneratedValue
+    private Long id;
+    @Column
     private String nombreObraSocial;
 
     public ObraSocial() {
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     
-    @Override
-    public String getOID() {
-        return super.OID;
-    }
-
-    @Override
-    public void setOID(String OID) {
-        super.OID=OID;
-    }
-
     public String getNombreObraSocial() {
         return nombreObraSocial;
     }

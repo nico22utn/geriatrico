@@ -33,7 +33,9 @@ public class Usuario implements Serializable {
     private Date fechaAlta;
     @Column(name="fechaBaja")
     private Date fechaBaja;
-
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Personal personal;
+    
     public Date getFechaAlta() {
         return fechaAlta;
     }
@@ -49,8 +51,6 @@ public class Usuario implements Serializable {
     public void setFechaBaja(Date fechaBaja) {
         this.fechaBaja = fechaBaja;
     }
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Personal personal;
 
     public Usuario() {
     }

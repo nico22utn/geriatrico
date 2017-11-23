@@ -16,6 +16,12 @@
     <mapping class="Modelo.Rol"/>
     <mapping class="Modelo.Area"/>
     <mapping class="Modelo.Personal"/>
-    <mapping class="Modelo.Usuario"/>
+    <mapping class="Modelo.DetalleInforme"/>
+    <mapping class="Modelo.Informe"/>
+    <mapping class="Modelo.Paciente"/>
+    <mapping class="Modelo.ObraSocial"/>
+    <mapping class="Modelo.HistorialClinico"/>
+    <mapping class="Modelo.HistorialClinicoEstado"/>
+    <mapping class="Modelo.EstadoHistorialClinico"/>
   </session-factory>
 </hibernate-configuration>
