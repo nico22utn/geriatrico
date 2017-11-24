@@ -23,5 +23,13 @@
     <mapping class="Modelo.HistorialClinico"/>
     <mapping class="Modelo.HistorialClinicoEstado"/>
     <mapping class="Modelo.EstadoHistorialClinico"/>
+    <mapping class="Modelo.TipoPrioridad"/>
+    <mapping class="Modelo.EstadoConsulta"/>
+    <mapping class="Modelo.TipoConsulta"/>
+    <mapping class="Modelo.Consulta"/>
+    <mapping class="Modelo.EstadoDetalleConsulta"/>
+    <mapping class="Modelo.DetalleConsulta"/>
+    <mapping class="Modelo.DetalleConsultaEstado"/>
+
   </session-factory>
 </hibernate-configuration>
