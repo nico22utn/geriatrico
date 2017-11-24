@@ -9,6 +9,7 @@ import Controlador.ControladorABMArea.ControladorABMArea;
 import Controlador.ControladorABMEspecializacion.ControladorABMEspecialidad;
 import Controlador.DTO.DTOArea;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -71,8 +72,18 @@ ControladorABMArea controlador;
         });
 
         jButton2.setText("Modificar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Baja");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -149,6 +160,23 @@ ControladorABMArea controlador;
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
        llenarTabla();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       ModificarArea i = new ModificarArea(null,true,Long.parseLong(modelo.getValueAt(jTable1.getSelectedRow(),0).toString()),controlador);
+       i.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int resp = JOptionPane.showConfirmDialog(null, "¿Desea dar de baja esta Area?", "Alerta!", 0);
+        if(resp == 0){
+            if(controlador.iniciarBaja(Long.parseLong(modelo.getValueAt(jTable1.getSelectedRow(),0).toString()))){
+            JOptionPane.showMessageDialog(null, "El Area se dio de baja exitosamente", "Exito", 1);
+        }else{
+            
+            JOptionPane.showMessageDialog(null, "Existe unn persona con esa area asociada, no se puede dar de baja, primero debe dar de baja a la persona", "Error", 0);
+        }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

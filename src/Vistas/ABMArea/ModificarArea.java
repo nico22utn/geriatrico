@@ -5,18 +5,25 @@
  */
 package Vistas.ABMArea;
 
+import Controlador.ControladorABMArea.ControladorABMArea;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Maxi
  */
 public class ModificarArea extends javax.swing.JDialog {
-
+ControladorABMArea controlador;
+Long idArea;
     /**
      * Creates new form ModificarArea
      */
-    public ModificarArea(java.awt.Frame parent, boolean modal) {
+    public ModificarArea(java.awt.Frame parent, boolean modal,Long idArea,ControladorABMArea controlador) {
         super(parent, modal);
+        this.controlador = controlador;
+        this.idArea = idArea;
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -42,6 +49,11 @@ public class ModificarArea extends javax.swing.JDialog {
         jLabel2.setText("Ingrese nombre de Area: ");
 
         jButton1.setText("Modificar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,6 +88,16 @@ public class ModificarArea extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+                              if(controlador.iniciarModificacion(idArea,jTextField1.getText())){
+            JOptionPane.showMessageDialog(null, "El area se modifico existosamente", "Exito", 1);
+            this.dispose();
+        }else{
+            
+            JOptionPane.showMessageDialog(null, "Existe un area con ese nombre, por favor ingrese otro", "Error", 0);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -106,14 +128,7 @@ public class ModificarArea extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ModificarArea dialog = new ModificarArea(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+
             }
         });
     }

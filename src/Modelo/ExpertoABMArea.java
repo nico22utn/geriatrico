@@ -21,9 +21,9 @@ public class ExpertoABMArea {
         
         Area areaExistente = (Area) HibernateUtil.getSession().createQuery("SELECT a FROM Area a WHERE a.nombreArea = :nombreArea").setParameter("nombreArea", nombreArea).uniqueResult();
         if(areaExistente == null){
-            Especialidad especialidad = new Especialidad();
-            especialidad.setNombreEspecialidad(nombreArea);
-            FachadaInterna.getInstancia().guardar(especialidad);
+            Area area = new Area();
+            area.setNombreArea(nombreArea);
+            FachadaInterna.getInstancia().guardar(area);
             return true;
         }else{
             
@@ -49,7 +49,7 @@ public class ExpertoABMArea {
     }
     
     public boolean iniciarBaja(Long idArea){
-        Personal persona = (Personal) HibernateUtil.getSession().createQuery("SELECT p FROM Personal p WHERE p.area.id" + idArea).uniqueResult();
+        Personal persona = (Personal) HibernateUtil.getSession().createQuery("SELECT p FROM Personal p WHERE p.area.id=" + idArea).uniqueResult();
         
         if(persona == null){
         Area area = (Area) HibernateUtil.getSession().createQuery("SELECT a FROM Area a WHERE id=" + idArea).uniqueResult();    

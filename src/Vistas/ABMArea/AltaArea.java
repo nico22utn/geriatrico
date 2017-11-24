@@ -6,6 +6,7 @@
 package Vistas.ABMArea;
 
 import Controlador.ControladorABMArea.ControladorABMArea;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +21,7 @@ ControladorABMArea controlador;
         super(parent, modal);
         initComponents();
         this.controlador = controlador;
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -45,6 +47,11 @@ ControladorABMArea controlador;
         jLabel2.setText("Ingrese nombre del area: ");
 
         jButton1.setText("Alta");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,6 +84,16 @@ ControladorABMArea controlador;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+                        if(controlador.iniciarAlta(jTextField1.getText())){
+            JOptionPane.showMessageDialog(null, "Se creo una nueva area", "Exito", 1);
+            this.dispose();
+        }else{
+            
+            JOptionPane.showMessageDialog(null, "Existe un area con ese nombre, por favor ingrese otro", "Error", 0);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

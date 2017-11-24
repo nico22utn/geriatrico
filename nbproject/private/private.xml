@@ -3,10 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Maxi/Documents/PinarPlaza/ProyectoPinar/geriatrico/src/Vistas/Login.java</file>
-            <file>file:/C:/Users/Maxi/Documents/PinarPlaza/ProyectoPinar/geriatrico/src/Vistas/RegistrarUsuario/Interfaz2RegistrarUsuario.java</file>
-            <file>file:/C:/Users/Maxi/Documents/PinarPlaza/ProyectoPinar/geriatrico/src/Vistas/RegistrarUsuario/InterfazRegistrarUsuario.java</file>
-            <file>file:/C:/Users/Maxi/Documents/PinarPlaza/ProyectoPinar/geriatrico/src/Vistas/PantallaPrincipal/InterfazPantallaPrincipal.java</file>
+            <file>file:/C:/Users/Maxi/Documents/PinarPlaza/ProyectoPinar/geriatrico/src/Vistas/ABMArea/PantallaPrincipalABMArea.java</file>
+            <file>file:/C:/Users/Maxi/Documents/PinarPlaza/ProyectoPinar/geriatrico/src/Vistas/ABMEspecializacion/EspecializacionModificar.java</file>
+            <file>file:/C:/Users/Maxi/Documents/PinarPlaza/ProyectoPinar/geriatrico/src/Vistas/ABMArea/AltaArea.java</file>
+            <file>file:/C:/Users/Maxi/Documents/PinarPlaza/ProyectoPinar/geriatrico/src/Controlador/DTO/DTOArea.java</file>
+            <file>file:/C:/Users/Maxi/Documents/PinarPlaza/ProyectoPinar/geriatrico/src/Modelo/ExpertoABMArea.java</file>
+            <file>file:/C:/Users/Maxi/Documents/PinarPlaza/ProyectoPinar/geriatrico/src/Controlador/ControladorABMArea/ControladorABMArea.java</file>
+            <file>file:/C:/Users/Maxi/Documents/PinarPlaza/ProyectoPinar/geriatrico/src/Vistas/ABMEspecializacion/PantallaPrincipalABMEspecializacion.java</file>
+            <file>file:/C:/Users/Maxi/Documents/PinarPlaza/ProyectoPinar/geriatrico/src/Vistas/ABMEspecializacion/EspecializacionAlta.java</file>
+            <file>file:/C:/Users/Maxi/Documents/PinarPlaza/ProyectoPinar/geriatrico/src/Vistas/ABMArea/ModificarArea.java</file>
         </group>
     </open-files>
 </project-private>
