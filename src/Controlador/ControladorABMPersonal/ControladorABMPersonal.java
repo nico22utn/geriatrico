@@ -70,6 +70,14 @@ public class ControladorABMPersonal {
         
     }
     
+    public boolean darAltaNuevamente(Long idPersonal){
+        FachadaInterna.getInstancia().iniciarTransaccion();
+        boolean exito = experto.darAltaNuevamente(idPersonal);
+        FachadaInterna.getInstancia().finalizarTransaccion();
+        return exito;
+        
+    }
+    
     
     
 }

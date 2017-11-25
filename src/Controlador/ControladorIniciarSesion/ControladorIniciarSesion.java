@@ -22,7 +22,7 @@ public class ControladorIniciarSesion {
      
      public Usuario loguear(String nombreUsuario){
          Usuario usuario = experto.loguear(nombreUsuario);
-         FachadaInterna.getInstancia().finalizarTransaccion();
+       
          return usuario;
      }
     

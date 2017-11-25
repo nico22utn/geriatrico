@@ -182,7 +182,7 @@ public class ExpertoABMPersonal {
             
         }
         
-                 public boolean iniciarBaja(Long idPersonal){
+            public boolean iniciarBaja(Long idPersonal){
                     try{
                      Date fechaHoy = new Date();
                      Personal persona = (Personal) HibernateUtil.getSession().createQuery("SELECT p FROM Personal p WHERE p.id=" + idPersonal).uniqueResult();
@@ -192,6 +192,25 @@ public class ExpertoABMPersonal {
                     }catch(Exception e){
                         return false;
                     }
-                 }
+           }
+                 
+                 
+            public boolean darAltaNuevamente(Long idPersonal){
+                try{
+                     Date fechaHoy = new Date();
+                     Personal persona = (Personal) HibernateUtil.getSession().createQuery("SELECT p FROM Personal p WHERE p.id=" + idPersonal).uniqueResult();
+                     persona.setFechaAlta(fechaHoy);
+                     persona.setFechaBaja(null);
+                     FachadaInterna.getInstancia().guardar(persona);    
+                    return true;
+                    
+                    
+                }catch(Exception e){
+                    
+                    return false;
+                }
+                
+                
+            }
     
 }

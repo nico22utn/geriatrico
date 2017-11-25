@@ -37,7 +37,7 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setExtendedState(MAXIMIZED_BOTH);
-       // textodeBienvenida.setText("Bienvenido " + usuario.getPersonal().getNombre() + " " + usuario.getPersonal().getApellido() + " Al area de " + usuario.getPersonal().getArea().getNombreArea());
+        textodeBienvenida.setText("Bienvenido " + usuario.getPersonal().getNombre() + " " + usuario.getPersonal().getApellido() + " Al area " + usuario.getPersonal().getArea().getNombreArea());
         textFechaHoy.setText(formateador.format(fechahoy));
        
 
@@ -399,19 +399,7 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                        Usuario usuario = new Usuario();
-        Area area = new Area();
-        area.setNombreArea("Traumatologia");
-        Rol rol = new Rol();
-        rol.setNombreRol("Doctor");
-        Personal personal = new Personal();
-        personal.setNombre("Maxi");
-        personal.setApellido("Guerrero");
-        personal.setRol(rol);
-        personal.setArea(area);
-        usuario.setPersonal(personal);
-        InterfazPantallaPrincipal i = new InterfazPantallaPrincipal(usuario);
-        new InterfazPantallaPrincipal(usuario).setVisible(true);
+
                 
             }
         });
