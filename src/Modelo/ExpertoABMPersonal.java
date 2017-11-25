@@ -9,8 +9,10 @@ import Controlador.DTO.DTOArea;
 import Controlador.DTO.DTOEspecializacion;
 import Controlador.DTO.DTOPersonal;
 import Controlador.DTO.DTORol;
+import Controlador.Persistencia.FachadaInterna;
 import Controlador.Persistencia.HibernateUtil;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,7 +37,7 @@ public class ExpertoABMPersonal {
             dtoPersonal.setNombreRol(personalencontrado.getRol().getNombreRol());
             
             List<DTOEspecializacion> listadtoEspecialidad = new ArrayList<>();
-            for(Especialidad especialidad:personalencontrado.getRol().getListespecialidad()){
+            for(Especialidad especialidad:personalencontrado.getEspecialidad()){
                 DTOEspecializacion dtoespe = new DTOEspecializacion();
                 dtoespe.setIdEspecializacion(especialidad.getId());
                 dtoespe.setNombreEspecializacion(especialidad.getNombreEspecialidad());
@@ -46,6 +48,34 @@ public class ExpertoABMPersonal {
         }
         
         return listadtoPersonal;
+    }
+        public DTOPersonal buscar(Long idPersonal){
+        Personal personalencontrado = (Personal) HibernateUtil.getSession().createQuery("SELECT p FROM Personal p WHERE p.id=:id").setParameter("id", idPersonal).uniqueResult();
+        
+        
+            
+            DTOPersonal dtoPersonal = new DTOPersonal();
+            dtoPersonal.setId(personalencontrado.getId());
+            dtoPersonal.setApellidoPersonal(personalencontrado.getApellido());
+            dtoPersonal.setNombrePersonal(personalencontrado.getNombre());
+            dtoPersonal.setDni(personalencontrado.getDni());
+            dtoPersonal.setFechaAlta(personalencontrado.getFechaAlta());
+            dtoPersonal.setFechaBaja(personalencontrado.getFechaBaja());
+            dtoPersonal.setNombreArea(personalencontrado.getArea().getNombreArea());
+            dtoPersonal.setNombreRol(personalencontrado.getRol().getNombreRol());
+            
+            List<DTOEspecializacion> listadtoEspecialidad = new ArrayList<>();
+            for(Especialidad especialidad:personalencontrado.getEspecialidad()){
+                DTOEspecializacion dtoespe = new DTOEspecializacion();
+                dtoespe.setIdEspecializacion(especialidad.getId());
+                dtoespe.setNombreEspecializacion(especialidad.getNombreEspecialidad());
+                listadtoEspecialidad.add(dtoespe);
+            }
+            dtoPersonal.setListaEspecialidad(listadtoEspecialidad);
+            
+        
+        
+        return dtoPersonal;
     }
         
         
@@ -92,7 +122,7 @@ public class ExpertoABMPersonal {
     }
                     
         public boolean iniciarAlta(DTOPersonal dtopersonal){
-            
+            Date fechaHoy = new Date();
              Personal personalExistente = (Personal) HibernateUtil.getSession().createQuery("SELECT p FROM Personal p WHERE p.dni = :dni").setParameter("dni", dtopersonal.getDni()).uniqueResult();
              if(personalExistente==null){
                  Personal personal = new Personal();
@@ -108,10 +138,11 @@ public class ExpertoABMPersonal {
                      listaEspecialidad.add(especialidadExistente);
                  }
                  
-                 rolexistente.setListespecialidad(listaEspecialidad);
-                 
+                 personal.setEspecialidad(listaEspecialidad);
+                 personal.setFechaAlta(fechaHoy);
+                 personal.setFechaBaja(null);
                  personal.setRol(rolexistente);
-                 
+                 FachadaInterna.getInstancia().guardar(personal);
                  
                  return true;
              }else{

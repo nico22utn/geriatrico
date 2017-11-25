@@ -30,17 +30,6 @@ public class Rol implements Serializable {
     private Long id;
     @Column(name="nombreRol")
     private String nombreRol;
-    @ManyToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="RolEspecializacion",joinColumns={@JoinColumn(name="idRol")},inverseJoinColumns={@JoinColumn(name="idEspecialidad")})
-    private List<Especialidad> listespecialidad;
-
-    public List<Especialidad> getListespecialidad() {
-        return listespecialidad;
-    }
-
-    public void setListespecialidad(List<Especialidad> listespecialidad) {
-        this.listespecialidad = listespecialidad;
-    }
 
 
     

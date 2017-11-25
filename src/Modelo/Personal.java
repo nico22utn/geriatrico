@@ -7,13 +7,16 @@ package Modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -44,6 +47,16 @@ public class Personal implements Serializable{
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="idArea")
     private Area area;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Especialidad> especialidad;
+
+    public List<Especialidad> getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(List<Especialidad> especialidad) {
+        this.especialidad = especialidad;
+    }
     
     public Rol getRol() {
         return rol;

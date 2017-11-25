@@ -42,6 +42,20 @@ public class ControladorABMPersonal {
         return experto.buscarArea();
     }
     
+    public DTOPersonal buscar(Long idPersonal){
+        FachadaInterna.getInstancia().iniciarTransaccion();
+        DTOPersonal personal = experto.buscar(idPersonal);
+        FachadaInterna.getInstancia().finalizarTransaccion();
+        return personal;
+        
+    }
+    
+    public boolean iniciarAlta(DTOPersonal dtopersonal){
+        boolean exito = experto.iniciarAlta(dtopersonal);
+        FachadaInterna.getInstancia().finalizarTransaccion();
+        return exito;
+    }
+    
     
     
 }
