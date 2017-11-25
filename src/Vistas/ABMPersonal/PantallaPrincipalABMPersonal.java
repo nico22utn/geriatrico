@@ -8,6 +8,7 @@ package Vistas.ABMPersonal;
 import Controlador.ControladorABMPersonal.ControladorABMPersonal;
 import Controlador.DTO.DTOPersonal;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,7 +34,9 @@ DefaultTableModel modelo;
         modelo.setRowCount(0);
         List<DTOPersonal> listaPersonal = controlador.buscar();
         Object[] objeto = new Object[8];
+        
         for(DTOPersonal personal : listaPersonal){
+            if(personal.getFechaBaja()==null){
             objeto[0] = personal.getId();
             objeto[1] = personal.getNombrePersonal();
             objeto[2] = personal.getApellidoPersonal();
@@ -41,9 +44,8 @@ DefaultTableModel modelo;
             objeto[4] = personal.getNombreArea();
             objeto[5] = personal.getNombreRol();
             if(personal.getListaEspecialidad().size() > 1){
-            for(int i=0;i<(personal.getListaEspecialidad().size()-1);i++){
-                objeto[6] = personal.getListaEspecialidad().get(i).getNombreEspecializacion() + ", " + personal.getListaEspecialidad().get(i+1).getNombreEspecializacion();
-            }
+                
+                objeto[6] = unirString(personal,(personal.getListaEspecialidad().size()-1));
             }else{
                 if(personal.getListaEspecialidad().size() == 0){
                  objeto[6] = "Ninguno";   
@@ -57,9 +59,23 @@ DefaultTableModel modelo;
             
             
             modelo.addRow(objeto);
+            }
             
         }
                 }
+                
+                public String unirString(DTOPersonal personal,int i){
+             String nombreEspecialidad = "";
+             if(i < 0){
+                 return nombreEspecialidad;
+             }else{
+               nombreEspecialidad = personal.getListaEspecialidad().get(i).getNombreEspecializacion() + ", " + unirString(personal,(i-1)) ;
+               return nombreEspecialidad;
+             }
+                 
+                }
+                
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,6 +117,11 @@ DefaultTableModel modelo;
         });
 
         jButton3.setText("Baja");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -137,6 +158,11 @@ DefaultTableModel modelo;
         jLabel2.setText("Seleccione una fila para modificar o dar de baja.");
 
         jButton5.setText("Consultar historial de personal dados de baja");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,8 +180,8 @@ DefaultTableModel modelo;
             .addGroup(layout.createSequentialGroup()
                 .addGap(195, 195, 195)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 543, Short.MAX_VALUE)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 466, Short.MAX_VALUE)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -198,6 +224,23 @@ DefaultTableModel modelo;
         ModificarPersonal i = new ModificarPersonal(null,true,controlador,idPersonal);
         i.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       int resp = JOptionPane.showConfirmDialog(null, "¿Desea dar de baja este personal?", "Alerta!", 0);
+        if(resp == 0){
+            if(controlador.iniciarBaja(Long.parseLong(modelo.getValueAt(jTable1.getSelectedRow(),0).toString()))){
+            JOptionPane.showMessageDialog(null, "El personal se dio de baja exitosamente", "Exito", 1);
+        }else{
+            
+            JOptionPane.showMessageDialog(null, "Hubo un error al dar de baja, verifique el sistema", "Error", 0);
+        }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        HistorialDePersonal i = new HistorialDePersonal(null,true,controlador);
+        i.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -351,6 +351,7 @@ int areaguardada;
         dtopersonal.setNombrePersonal(textNombre.getText());
         dtopersonal.setApellidoPersonal(textApellido.getText());
         dtopersonal.setDni(textDni.getText());
+        dtopersonal.setId(idPersonal);
         try{
             if(jList4.getSelectedValue() == null && jList1.getSelectedValue()==null){
 
@@ -365,12 +366,10 @@ int areaguardada;
                 listaEspecializacion.add(dto);
             }
             dtopersonal.setListaEspecialidad(listaEspecializacion);
-            if(true){
-                JOptionPane.showMessageDialog(null, "El personal se dio de alta con exito", "Exito", 1);
-                this.dispose();
-            }else{
-                JOptionPane.showMessageDialog(null, "El personal ya existe en el sistema", "Error", 0);
-            }
+            controlador.iniciarModificar(dtopersonal);
+            JOptionPane.showMessageDialog(null, "El personal se modifico con exito", "Exito", 1);
+            this.dispose();
+
 
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Por favor revise que selecciono todas las opciones", "Error", 0);

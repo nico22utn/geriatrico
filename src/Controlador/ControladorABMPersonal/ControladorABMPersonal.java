@@ -56,6 +56,20 @@ public class ControladorABMPersonal {
         return exito;
     }
     
+    public void iniciarModificar(DTOPersonal dtopersonal){
+        experto.iniciarModificar(dtopersonal);
+        FachadaInterna.getInstancia().finalizarTransaccion();
+        
+    }
+    
+    public boolean iniciarBaja(Long idPersonal){
+       FachadaInterna.getInstancia().iniciarTransaccion();
+       boolean exito = experto.iniciarBaja(idPersonal);
+       FachadaInterna.getInstancia().finalizarTransaccion();
+       return exito;
+        
+    }
+    
     
     
 }

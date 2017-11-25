@@ -154,5 +154,44 @@ public class ExpertoABMPersonal {
             
         }
         
+                public void iniciarModificar(DTOPersonal dtopersonal){
+            Date fechaHoy = new Date();
+
+                 Personal personal = (Personal) HibernateUtil.getSession().createQuery("SELECT p FROM Personal p WHERE p.id=" + dtopersonal.getId()).uniqueResult();
+                 personal.setApellido(dtopersonal.getApellidoPersonal());
+                 personal.setNombre(dtopersonal.getNombrePersonal());
+                 personal.setDni(dtopersonal.getDni());
+                 Area areaExistente = (Area) HibernateUtil.getSession().createQuery("SELECT a FROM Area a WHERE a.nombreArea = :nombreArea").setParameter("nombreArea", dtopersonal.getNombreArea()).uniqueResult();
+                 personal.setArea(areaExistente);
+                 Rol rolexistente = (Rol) HibernateUtil.getSession().createQuery("SELECT r FROM Rol r WHERE r.nombreRol = :nombreRol").setParameter("nombreRol", dtopersonal.getNombreRol()).uniqueResult();
+                 List<Especialidad> listaEspecialidad = new ArrayList<>();
+                 for(DTOEspecializacion dtoespecialidad : dtopersonal.getListaEspecialidad()){
+                     Especialidad especialidadExistente = (Especialidad) HibernateUtil.getSession().createQuery("SELECT e FROM Especialidad e WHERE e.nombreEspecialidad = :nombreEspecialidad").setParameter("nombreEspecialidad", dtoespecialidad.getNombreEspecializacion()).uniqueResult();
+                     listaEspecialidad.add(especialidadExistente);
+                 }
+                 
+                 personal.setEspecialidad(listaEspecialidad);
+                 personal.setFechaAlta(fechaHoy);
+                 personal.setFechaBaja(null);
+                 personal.setRol(rolexistente);
+                 FachadaInterna.getInstancia().guardar(personal);
+                 
+            
+            
+            
+            
+        }
+        
+                 public boolean iniciarBaja(Long idPersonal){
+                    try{
+                     Date fechaHoy = new Date();
+                     Personal persona = (Personal) HibernateUtil.getSession().createQuery("SELECT p FROM Personal p WHERE p.id=" + idPersonal).uniqueResult();
+                     persona.setFechaBaja(fechaHoy);
+                     FachadaInterna.getInstancia().guardar(persona);
+                     return true;
+                    }catch(Exception e){
+                        return false;
+                    }
+                 }
     
 }

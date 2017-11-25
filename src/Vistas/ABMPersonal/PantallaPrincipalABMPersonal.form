@@ -37,8 +37,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
               <Component id="jButton4" min="-2" pref="117" max="-2" attributes="0"/>
-              <EmptySpace pref="543" max="32767" attributes="0"/>
-              <Component id="jButton5" min="-2" pref="258" max="-2" attributes="0"/>
+              <EmptySpace pref="466" max="32767" attributes="0"/>
+              <Component id="jButton5" min="-2" pref="335" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
           </Group>
           <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
@@ -101,6 +101,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Baja"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -192,6 +195,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Consultar historial de personal dados de baja"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
