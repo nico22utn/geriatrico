@@ -18,11 +18,11 @@ import java.util.List;
 public class ExpertoEstadoHistorialClinico {
     public boolean iniciarAlta(String nombreEstado){
     
-    EstadoHistorialClinico estadoExistente = (EstadoHistorialClinico) HibernateUtil.getSession().createQuery("SELECT e FROM EstadoHistorialClinico e WHERE e.nombreEstado = :nombreEstado").setParameter("nombreEstado", nombreEstado).uniqueResult();
+    EstadoHistorialClinico estadoExistente = (EstadoHistorialClinico) HibernateUtil.getSession().createQuery("SELECT e FROM EstadoHistorialClinico e WHERE e.nombre = :nombreEstado").setParameter("nombreEstado", nombreEstado).uniqueResult();
     if(estadoExistente == null){
         EstadoHistorialClinico estado=new EstadoHistorialClinico();
-        estado.setNombreEstado(nombreEstado);
-        FachadaInterna.getInstancia().guardar(estadoExistente);
+        estado.setNombre(nombreEstado);
+        FachadaInterna.getInstancia().guardar(estado);
         return true;
     }else{
         
@@ -32,11 +32,11 @@ public class ExpertoEstadoHistorialClinico {
     
     }
     public boolean iniciarModificacion(Long idEstado,String nombreEstado){
-    EstadoHistorialClinico estadoExistente = (EstadoHistorialClinico) HibernateUtil.getSession().createQuery("SELECT e FROM EstadoHistorialClinico e WHERE e.nombreEstado = :nombre").setParameter("nombre", nombreEstado).uniqueResult();
+    EstadoHistorialClinico estadoExistente = (EstadoHistorialClinico) HibernateUtil.getSession().createQuery("SELECT e FROM EstadoHistorialClinico e WHERE e.nombre = :nombre").setParameter("nombre", nombreEstado).uniqueResult();
 
         if(estadoExistente == null){
         EstadoHistorialClinico estadoEncontrado = (EstadoHistorialClinico) HibernateUtil.getSession().createQuery("SELECT e FROM EstadoHistorialClinico e WHERE e.id = :id").setParameter("id", idEstado).uniqueResult();
-        estadoEncontrado.setNombreEstado(nombreEstado);
+        estadoEncontrado.setNombre(nombreEstado);
         FachadaInterna.getInstancia().guardar(estadoEncontrado);
         return true;
     }else{
@@ -46,7 +46,7 @@ public class ExpertoEstadoHistorialClinico {
     }
     
     public boolean iniciarBaja(Long idEstado){
-        HistorialClinicoEstado hcestado= (HistorialClinicoEstado) HibernateUtil.getSession().createQuery("SELECT h FROM HistorialClinicoEstado h  WHERE c.estadoHistorialClinico.id=: id").setParameter("id",idEstado).uniqueResult();
+        HistorialClinicoEstado hcestado= (HistorialClinicoEstado) HibernateUtil.getSession().createQuery("SELECT h FROM HistorialClinicoEstado h  WHERE h.estadoHistorialClinico.id=:id").setParameter("id",idEstado).uniqueResult();
         
         if(hcestado == null){
         EstadoHistorialClinico estadoEncontrado = (EstadoHistorialClinico) HibernateUtil.getSession().createQuery("SELECT e FROM EstadoHistorialClinico e WHERE e.id=:id ").setParameter("id", idEstado).uniqueResult();    
@@ -63,7 +63,7 @@ public class ExpertoEstadoHistorialClinico {
         List<Object> lista = HibernateUtil.getSession().createQuery("SELECT e FROM EstadoHistorialClinico e").list();
         List<DTOEstadoHistorialClinico> listadtoestado = new ArrayList<>();
         for(Object estado : lista){
-            EstadoConsulta estadoencontrado = (EstadoConsulta) estado;
+            EstadoHistorialClinico estadoencontrado = (EstadoHistorialClinico) estado;
             DTOEstadoHistorialClinico dto=new DTOEstadoHistorialClinico();
             dto.setNombre(estadoencontrado.getNombre());
             dto.setId(estadoencontrado.getId());

@@ -22,8 +22,8 @@ public class EstadoHistorialClinico implements Serializable{
 
     @Id @GeneratedValue
     private Long id;
-    @Column(name="nombreEstado")
-    private String nombreEstado;
+    @Column
+    private String nombre;
 
     public EstadoHistorialClinico() {
     }
@@ -36,12 +36,12 @@ public class EstadoHistorialClinico implements Serializable{
         this.id = id;
     }
 
-    public String getNombreEstado() {
-        return nombreEstado;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreEstado(String nombreEstado) {
-        this.nombreEstado = nombreEstado;
+    public void setNombre(String nombreEstado) {
+        this.nombre = nombreEstado;
     }
     
 
