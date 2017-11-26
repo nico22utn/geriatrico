@@ -26,7 +26,13 @@ public class Paciente implements Serializable {
     @Column
     private String apellido;
     @Column
+    private Double peso;
+    @Column
+    private Double talla;
+    @Column
     private String dni;
+    @Column
+    private Date fechadeNacimiento;
     @Column
     private Date fechaAlta;
     @Column
@@ -103,6 +109,28 @@ public class Paciente implements Serializable {
 
     public void setObraSocial(ObraSocial obraSocial) {
         this.obraSocial = obraSocial;
+    }
+        public Double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    public Double getTalla() {
+        return talla;
+    }
+
+    public void setTalla(Double talla) {
+        this.talla = talla;
+    }
+        public Date getFechadeNacimiento() {
+        return fechadeNacimiento;
+    }
+
+    public void setFechadeNacimiento(Date fechadeNacimiento) {
+        this.fechadeNacimiento = fechadeNacimiento;
     }
     
 }
