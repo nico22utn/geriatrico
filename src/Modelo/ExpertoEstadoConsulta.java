@@ -22,7 +22,7 @@ public class ExpertoEstadoConsulta {
         if(estadoExistente == null){
             EstadoConsulta estado=new EstadoConsulta();
             estado.setNombre(nombreEstadoConsulta);
-            FachadaInterna.getInstancia().guardar(estadoExistente);
+            FachadaInterna.getInstancia().guardar(estado);
             return true;
         }else{
             
@@ -48,7 +48,7 @@ public class ExpertoEstadoConsulta {
     }
     
     public boolean iniciarBaja(Long idEstado){
-        Consulta consulta= (Consulta) HibernateUtil.getSession().createQuery("SELECT c FROM Consulta c WHERE c.estadoConsulta=: id").setParameter("id",idEstado).uniqueResult();
+        Consulta consulta= (Consulta) HibernateUtil.getSession().createQuery("SELECT c FROM Consulta c WHERE c.estadoConsulta.id=:id").setParameter("id",idEstado).uniqueResult();
         
         if(consulta == null){
         EstadoConsulta estadoEncontrado = (EstadoConsulta) HibernateUtil.getSession().createQuery("SELECT e FROM EstadoConsulta e WHERE e.id=:id ").setParameter("id", idEstado).uniqueResult();    
