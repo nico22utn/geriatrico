@@ -11,8 +11,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -32,13 +35,24 @@ public class Paciente implements Serializable {
     @Column
     private String dni;
     @Column
+    private int edad;
+    @Temporal(TemporalType.DATE)
     private Date fechadeNacimiento;
     @Column
     private Date fechaAlta;
     @Column
     private Date fechaBaja;
-    @Column
-    private String fotoPaciente;
+    @Lob
+    @Column(name="foto",nullable=false)
+    private byte[] fotoPaciente;
+
+    public byte[] getFotoPaciente() {
+        return fotoPaciente;
+    }
+
+    public void setFotoPaciente(byte[] fotoPaciente) {
+        this.fotoPaciente = fotoPaciente;
+    }
     @Column
     private String nombre;
     @ManyToOne
@@ -87,13 +101,7 @@ public class Paciente implements Serializable {
         this.fechaBaja = fechaBaja;
     }
 
-    public String getFotoPaciente() {
-        return fotoPaciente;
-    }
 
-    public void setFotoPaciente(String fotoPaciente) {
-        this.fotoPaciente = fotoPaciente;
-    }
 
     public String getNombre() {
         return nombre;
@@ -131,6 +139,14 @@ public class Paciente implements Serializable {
 
     public void setFechadeNacimiento(Date fechadeNacimiento) {
         this.fechadeNacimiento = fechadeNacimiento;
+    }
+    
+        public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
     
 }

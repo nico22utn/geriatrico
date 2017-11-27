@@ -9,7 +9,7 @@ import Modelo.Area;
 import Modelo.Personal;
 import Modelo.Rol;
 import Modelo.Usuario;
-import Vistas.ABMAbuelo.MenuPrincipalABMAbuelos;
+import Vistas.ABMAbuelo.PantallaPrincipalABMAbuelos;
 import Vistas.ABMRol.PantallaPrincipalABMRol;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -230,7 +230,7 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        MenuPrincipalABMAbuelos i = new MenuPrincipalABMAbuelos(this,true);
+        PantallaPrincipalABMAbuelos i = new PantallaPrincipalABMAbuelos(this,true);
         i.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
