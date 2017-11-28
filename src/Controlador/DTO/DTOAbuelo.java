@@ -38,7 +38,15 @@ public class DTOAbuelo {
         this.rutafotoPaciente = rutafotoPaciente;
     }
     private String nombre;
-    private String nombreObraSocial;
+    private DTOObraSocial DTOobraSocial;
+
+    public DTOObraSocial getDTOobraSocial() {
+        return DTOobraSocial;
+    }
+
+    public void setDTOobraSocial(DTOObraSocial DTOobraSocial) {
+        this.DTOobraSocial = DTOobraSocial;
+    }
     private byte[] foto;
 
     public byte[] getFoto() {
@@ -131,11 +139,5 @@ public class DTOAbuelo {
         this.nombre = nombre;
     }
 
-    public String getNombreObraSocial() {
-        return nombreObraSocial;
-    }
 
-    public void setNombreObraSocial(String nombreObraSocial) {
-        this.nombreObraSocial = nombreObraSocial;
-    }
 }

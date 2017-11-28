@@ -18,7 +18,7 @@ import java.util.List;
 public class ControladorABMAbuelos {
     ExpertoABMAbuelos experto = new ExpertoABMAbuelos();
     public boolean iniciarAlta(DTOAbuelo abuelo){
-      
+        FachadaInterna.getInstancia().iniciarTransaccion();
         boolean exito = experto.iniciarAlta(abuelo);
         FachadaInterna.getInstancia().finalizarTransaccion();
         return exito;
@@ -31,11 +31,7 @@ public class ControladorABMAbuelos {
         return lista;
     }
     
-    public List<DTOObraSocial> buscarObra(){
-        FachadaInterna.getInstancia().iniciarTransaccion();
-        return experto.buscarObra();
-        
-    }
+
     
     
 }
