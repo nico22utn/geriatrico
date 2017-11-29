@@ -147,6 +147,52 @@ public class ExpertoABMAbuelos {
      return listaDTOAbuelo;
              
     }
+    
+        public DTOAbuelo buscar(Long idAbuelo){
+     
+ 
+         Paciente paciente = (Paciente) HibernateUtil.getSession().createQuery("SELECT p FROM Paciente p WHERE p.id = :id").setParameter("id", idAbuelo).uniqueResult();
+         DTOAbuelo dtoabuelo = new DTOAbuelo();
+         dtoabuelo.setApellido(paciente.getApellido());
+         dtoabuelo.setNombre(paciente.getNombre());
+         dtoabuelo.setDni(paciente.getDni());
+         dtoabuelo.setFechaAlta(paciente.getFechaAlta());
+         dtoabuelo.setFechaBaja(paciente.getFechaBaja());
+         dtoabuelo.setEdad(CalcularEdad(paciente.getFechadeNacimiento()));
+         dtoabuelo.setFoto(paciente.getFotoPaciente());
+         dtoabuelo.setPeso(paciente.getPeso());
+         dtoabuelo.setTalla(paciente.getTalla());
+         dtoabuelo.setId(paciente.getId());
+         dtoabuelo.setFechadeNacimiento(paciente.getFechadeNacimiento());
+         
+         DTOObraSocial dto = new DTOObraSocial();
+         dto.setCredencialDeAfiliacion(paciente.getObraSocial().getCredencialDeAfiliacion());
+         dto.setDisposicionNro(paciente.getObraSocial().getDisposicionNro());
+         dto.setDomicilio(paciente.getObraSocial().getDomicilio());
+         dto.setEmitidoPor(paciente.getObraSocial().getEmitidoPor());
+         dto.setExpedienteNro(paciente.getObraSocial().getExpedienteNro());
+         dto.setFechaAltaCredencial(paciente.getObraSocial().getFechaAltaCredencial());
+         dto.setFechaEmisionCredencial(paciente.getObraSocial().getFechaEmisionCredencial());
+         dto.setFechaVencimientoCredencial(paciente.getObraSocial().getFechaVencimientoCredencial());
+         dto.setFechaVigenciaCredencial(paciente.getObraSocial().getFechaVigenciaCredencial());
+         dto.setFechaVigenciaMedico(paciente.getObraSocial().getFechaVigenciaMedico());
+         dto.setFechaVigenciaModulo(paciente.getObraSocial().getFechaVigenciaModulo());
+         dto.setGp(paciente.getObraSocial().getGp());
+         dto.setLocalidad(paciente.getObraSocial().getLocalidad());
+         dto.setModuloInternacion(paciente.getObraSocial().getModuloInternacion());
+         dto.setNombreObraSocial(paciente.getObraSocial().getNombreObraSocial());
+         dto.setNombremedicoCabecera(paciente.getObraSocial().getNombremedicoCabecera());
+         dto.setNroModulo(paciente.getObraSocial().getNroModulo());
+         dto.setNumeroBeneficio(paciente.getObraSocial().getNumeroBeneficio());
+         dto.setNumeroMedicoCabecera(paciente.getObraSocial().getNumeroMedicoCabecera());
+         dtoabuelo.setDTOobraSocial(dto);
+         
+        
+     
+     
+     return dtoabuelo;
+             
+    }
 
     
 

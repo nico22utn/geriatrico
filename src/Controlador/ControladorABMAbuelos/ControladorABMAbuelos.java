@@ -31,6 +31,14 @@ public class ControladorABMAbuelos {
         return lista;
     }
     
+    public DTOAbuelo buscar(Long idAbuelo){
+        FachadaInterna.getInstancia().iniciarTransaccion();
+        DTOAbuelo abuelo = experto.buscar(idAbuelo);
+        FachadaInterna.getInstancia().finalizarTransaccion();
+        return abuelo;
+        
+    }
+    
 
     
     

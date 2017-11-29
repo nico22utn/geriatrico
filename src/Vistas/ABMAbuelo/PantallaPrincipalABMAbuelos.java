@@ -143,9 +143,14 @@ List<byte[]> listaImagenes;
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 710, -1, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 710, -1, -1));
 
         jButton5.setText("Consultar abuelos dados de baja");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 700, 270, 40));
 
         jLabel4.setText("Registrar nuevo abuelo");
@@ -180,6 +185,11 @@ List<byte[]> listaImagenes;
         getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 630, -1, -1));
 
         jButton7.setText("Consultar Obra social del abuelo");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 630, 270, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/imagenes/fondoAbmAbuelos.jpg"))); // NOI18N
@@ -216,6 +226,16 @@ List<byte[]> listaImagenes;
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        Long idSeleccionado = Long.parseLong(modelo.getValueAt(jTable1.getSelectedRow(), 0).toString());
+        ObraSocialAbuelo i = new ObraSocialAbuelo(null,true,controlador,idSeleccionado);
+        i.setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
