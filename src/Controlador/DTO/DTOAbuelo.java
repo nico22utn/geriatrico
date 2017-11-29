@@ -29,6 +29,15 @@ public class DTOAbuelo {
     private Date fechaAlta;
     private Date fechaBaja;
     private String rutafotoPaciente;
+    private String motivoBaja;
+
+    public String getMotivoBaja() {
+        return motivoBaja;
+    }
+
+    public void setMotivoBaja(String motivoBaja) {
+        this.motivoBaja = motivoBaja;
+    }
 
     public String getRutafotoPaciente() {
         return rutafotoPaciente;

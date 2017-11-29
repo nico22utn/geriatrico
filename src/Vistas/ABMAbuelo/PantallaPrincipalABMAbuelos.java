@@ -12,10 +12,16 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -37,6 +43,15 @@ List<byte[]> listaImagenes;
         modelo = (DefaultTableModel) jTable1.getModel();
         llenarTabla();
         
+        
+    }
+    
+    public void refrescar(JDialog ventana){
+        if(ventana.isVisible()){
+            refrescar(ventana);
+        }else{
+            llenarTabla();
+        }
     }
     
         public void llenarTabla(){
@@ -95,9 +110,19 @@ List<byte[]> listaImagenes;
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 70, 130, 70));
 
         jButton2.setText("Modificar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 140, 60));
 
         jButton3.setText("Dar Baja");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 170, 140, 60));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -201,10 +226,11 @@ List<byte[]> listaImagenes;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        AltaAbuelo i = new AltaAbuelo(null,true,controlador);
        i.setVisible(true);
+       refrescar(i);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        llenarTabla();
+        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -223,19 +249,68 @@ List<byte[]> listaImagenes;
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        HistorialDadosDeBaja i = new HistorialDadosDeBaja(null,true);
+        i.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         Long idSeleccionado = Long.parseLong(modelo.getValueAt(jTable1.getSelectedRow(), 0).toString());
         ObraSocialAbuelo i = new ObraSocialAbuelo(null,true,controlador,idSeleccionado);
-        i.setVisible(true);
+        
+        
+        
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       int j = jTable1.getSelectedRow();
+    if(j>-1){   
+       SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+       DTOAbuelo dto = new DTOAbuelo();
+       dto.setId(Long.parseLong(modelo.getValueAt(jTable1.getSelectedRow(), 0).toString()));
+       dto.setApellido(modelo.getValueAt(jTable1.getSelectedRow(), 2).toString());
+       dto.setNombre(modelo.getValueAt(jTable1.getSelectedRow(), 1).toString());
+       dto.setDni(modelo.getValueAt(jTable1.getSelectedRow(), 3).toString());
+       String fechaNacimiento = modelo.getValueAt(jTable1.getSelectedRow(), 7).toString();
+    try {
+        dto.setFechadeNacimiento(formateador.parse(fechaNacimiento));
+    } catch (ParseException ex) {
+        Logger.getLogger(PantallaPrincipalABMAbuelos.class.getName()).log(Level.SEVERE, null, ex);
+    }
+       dto.setPeso(Double.parseDouble(modelo.getValueAt(jTable1.getSelectedRow(), 5).toString()));
+       dto.setTalla(Double.parseDouble(modelo.getValueAt(jTable1.getSelectedRow(), 6).toString()));
+       dto.setFoto(listaImagenes.get(jTable1.getSelectedRow()));
+       ModificarAbuelo i = new ModificarAbuelo(null,true,controlador,dto);
+       i.setVisible(true);
+       refrescar(i);
+       
+    }else{
+       JOptionPane.showMessageDialog(null, "Seleccione un abuelo por favor", "Error", 0);
+
+    }
+       
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        llenarTabla();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       int resp = JOptionPane.showConfirmDialog(null, "¿Desea dar de baja este abuelo?", "Alerta!", 0);
+        if(resp == 0){
+            String respuesta = JOptionPane.showInputDialog(null, "Escriba el motivo de la baja");
+            if(respuesta != null){
+            if(controlador.iniciarBaja(Long.parseLong(modelo.getValueAt(jTable1.getSelectedRow(),0).toString()),respuesta)){
+            JOptionPane.showMessageDialog(null, "El abuelo se dio de baja exitosamente", "Exito", 1);
+            llenarTabla();  
+            }
+
+        }else{
+            
+            JOptionPane.showMessageDialog(null, "Hubo un error al dar de baja, verifique el sistema", "Error", 0);
+        }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

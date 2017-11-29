@@ -5,6 +5,8 @@
  */
 package Vistas.ABMAbuelo;
 
+import Controlador.ControladorABMAbuelos.ControladorABMAbuelos;
+import Controlador.DTO.DTOAbuelo;
 import Controlador.DTO.DTOObraSocial;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,6 +28,34 @@ public static DTOObraSocial dto;
         this.setLocationRelativeTo(null);
         dto = new DTOObraSocial();
         
+    }
+    
+        public RegistrarObraSocial(java.awt.Frame parent, boolean modal,Long idAbuelo,ControladorABMAbuelos controlador) {
+        super(parent, modal);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        dto = new DTOObraSocial();
+        DTOAbuelo dtoAbuelo = controlador.buscar(idAbuelo);
+        dto = dtoAbuelo.getDTOobraSocial();
+        textCredencialAfiliacion.setText(dto.getCredencialDeAfiliacion());
+        textDisposicion.setText(dto.getDisposicionNro());
+        textDomicilio.setText(dto.getDomicilio());
+        textEmitidoPor.setText(dto.getEmitidoPor());
+        textExpedienteNro.setText(dto.getExpedienteNro());
+        textFechaAltaCredencial.setText(dto.getFechaAltaCredencial());
+        textFechaEmisionCredencial.setText(dto.getFechaEmisionCredencial());
+        textFechaVencimientoCredencial.setText(dto.getFechaVencimientoCredencial());
+        textFechaVigenciaCredencial.setText(dto.getFechaVigenciaCredencial());
+        textFechaVigenciaMedica.setText(dto.getFechaVigenciaMedico());
+        textGP.setText(dto.getGp());
+        textLocalidad.setText(dto.getLocalidad());
+        textModuloInternacion.setText(dto.getModuloInternacion());
+        textNombreObra.setText(dto.getNombreObraSocial());
+        textNombremedico.setText(dto.getNombremedicoCabecera());
+        textNroModulo.setText(dto.getNroModulo());
+        textNumeroBeneficio.setText(dto.getNumeroBeneficio());
+        textNumeroMedico.setText(dto.getNumeroMedicoCabecera());
+        textfechaVigenciaModulo.setText(dto.getFechaVigenciaModulo());
     }
 
     /**
@@ -338,6 +368,7 @@ public static DTOObraSocial dto;
         dto.setNroModulo(textNroModulo.getText());
         dto.setNumeroBeneficio(textNumeroBeneficio.getText());
         dto.setNumeroMedicoCabecera(textNumeroMedico.getText());
+        
         this.dispose();
     
         

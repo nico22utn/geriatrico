@@ -39,6 +39,36 @@ public class ControladorABMAbuelos {
         
     }
     
+    public boolean iniciarModificar(DTOAbuelo abuelo,boolean obrasocialmodificada){
+        FachadaInterna.getInstancia().iniciarTransaccion();
+        boolean exito = experto.iniciarModificar(abuelo,obrasocialmodificada);
+        FachadaInterna.getInstancia().finalizarTransaccion();
+        return exito;
+    }
+    
+    public boolean iniciarBaja(Long idAbuelo,String motivoError){
+        FachadaInterna.getInstancia().iniciarTransaccion();
+        boolean exito = experto.iniciarBaja(idAbuelo,motivoError);
+        FachadaInterna.getInstancia().finalizarTransaccion();
+        return exito;
+    }
+    
+    public List<DTOAbuelo> buscarbajas(){
+            
+        FachadaInterna.getInstancia().iniciarTransaccion();
+        List<DTOAbuelo> lista = experto.buscarbajas();
+        FachadaInterna.getInstancia().finalizarTransaccion();
+        return lista;
+    
+    }
+    
+    public void iniciarAltaNuevamente(Long idAbuelo){
+        FachadaInterna.getInstancia().iniciarTransaccion();
+        experto.iniciarAltaNuevamente(idAbuelo);
+        FachadaInterna.getInstancia().finalizarTransaccion();
+        
+        
+    }
 
     
     

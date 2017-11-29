@@ -8,6 +8,7 @@ package Vistas.ABMAbuelo;
 
 import Controlador.ControladorABMAbuelos.ControladorABMAbuelos;
 import Controlador.DTO.DTOAbuelo;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,10 +21,13 @@ public class ObraSocialAbuelo extends javax.swing.JDialog {
         super(parent, modal);
         this.controlador = controlador;
         initComponents();
+        this.setLocationRelativeTo(null);
         llenarDatos(idAbuelo);
+        
     }
         public void llenarDatos(Long idAbuelo){
             DTOAbuelo dto = controlador.buscar(idAbuelo);
+            if(dto.getDTOobraSocial() != null){
             DNI.setText(dto.getDni());
             DisposicionNro.setText(dto.getDTOobraSocial().getDisposicionNro());
             Domicilio.setText(dto.getDTOobraSocial().getDomicilio());
@@ -43,6 +47,12 @@ public class ObraSocialAbuelo extends javax.swing.JDialog {
             textFechaVigenciaDeCredencial.setText(dto.getDTOobraSocial().getFechaVigenciaCredencial());
             textFechadeEmisionCredencial.setText(dto.getDTOobraSocial().getFechaEmisionCredencial());
             textNombreyApellido.setText(dto.getNombre() + " " + dto.getApellido());
+            this.setVisible(true);
+            }else{
+              JOptionPane.showMessageDialog(null, "No posee obra social", "Error", 0);
+              this.dispose();
+              this.setVisible(false);
+            }
         }
 
     /** This method is called from within the constructor to

@@ -31,6 +31,8 @@ public class ExpertoABMAbuelos {
     public boolean iniciarAlta(DTOAbuelo abuelo){
         Date fechaHoy = new Date();
         ObraSocial obra = new ObraSocial();
+        Paciente paciente = new Paciente();
+        if(abuelo.getDTOobraSocial() != null){
         obra.setCredencialDeAfiliacion(abuelo.getDTOobraSocial().getCredencialDeAfiliacion());
         obra.setDisposicionNro(abuelo.getDTOobraSocial().getDisposicionNro());
         obra.setDomicilio(abuelo.getDTOobraSocial().getDomicilio());
@@ -50,23 +52,34 @@ public class ExpertoABMAbuelos {
         obra.setNroModulo(abuelo.getDTOobraSocial().getNroModulo());
         obra.setNumeroBeneficio(abuelo.getDTOobraSocial().getNumeroBeneficio());
         obra.setNumeroMedicoCabecera(abuelo.getDTOobraSocial().getNumeroMedicoCabecera());
+        paciente.setObraSocial(obra);
         FachadaInterna.getInstancia().guardar(obra);
+            
+        }
+ 
+
         
-        Paciente abueloExistente =(Paciente) HibernateUtil.getSession().createQuery("SELECT p FROM Paciente p WHERE p.dni= :dni").setParameter("dni", abuelo.getDni()).uniqueResult();
+        Paciente abueloExistente =(Paciente) HibernateUtil.getSession().createQuery("SELECT p FROM Paciente p WHERE p.dni= :dni AND p.fechaBaja="+null).setParameter("dni", abuelo.getDni()).uniqueResult();
         if(abueloExistente == null){
-            Paciente paciente = new Paciente();
+            
             paciente.setNombre(abuelo.getNombre());
             paciente.setApellido(abuelo.getApellido());
             paciente.setDni(abuelo.getDni());
             paciente.setFechaAlta(fechaHoy);
             paciente.setFechaBaja(null);
-            paciente.setFechadeNacimiento(abuelo.getFechadeNacimiento());
-            paciente.setObraSocial(obra);
+            paciente.setFechadeNacimiento(abuelo.getFechadeNacimiento());  
             paciente.setPeso(abuelo.getPeso());
             paciente.setTalla(abuelo.getTalla());
             paciente.setEdad(CalcularEdad(abuelo.getFechadeNacimiento()));
-            byte[] imagen = convertirStringAbyte(abuelo.getRutafotoPaciente());
-            paciente.setFotoPaciente(imagen);
+            
+            if(!"".equals(abuelo.getRutafotoPaciente())){
+             byte[] imagen = convertirStringAbyte(abuelo.getRutafotoPaciente());   
+             paciente.setFotoPaciente(imagen);   
+            }else{
+                
+             paciente.setFotoPaciente(abuelo.getFoto());   
+            }
+            
             FachadaInterna.getInstancia().guardar(paciente);
             return true;
             
@@ -102,7 +115,7 @@ public class ExpertoABMAbuelos {
     }
     
     public List<DTOAbuelo> buscar(){
-     List listaAbuelos = HibernateUtil.getSession().createQuery("SELECT p FROM Paciente p").list();
+     List listaAbuelos = HibernateUtil.getSession().createQuery("SELECT p FROM Paciente p WHERE p.fechaBaja=" + null).list();
      List<DTOAbuelo> listaDTOAbuelo = new ArrayList<>();
      for(Object a : listaAbuelos){
          Paciente paciente = (Paciente) a;
@@ -118,7 +131,7 @@ public class ExpertoABMAbuelos {
          dtoabuelo.setTalla(paciente.getTalla());
          dtoabuelo.setId(paciente.getId());
          dtoabuelo.setFechadeNacimiento(paciente.getFechadeNacimiento());
-         
+         if(paciente.getObraSocial() != null){
          DTOObraSocial dto = new DTOObraSocial();
          dto.setCredencialDeAfiliacion(paciente.getObraSocial().getCredencialDeAfiliacion());
          dto.setDisposicionNro(paciente.getObraSocial().getDisposicionNro());
@@ -140,7 +153,7 @@ public class ExpertoABMAbuelos {
          dto.setNumeroBeneficio(paciente.getObraSocial().getNumeroBeneficio());
          dto.setNumeroMedicoCabecera(paciente.getObraSocial().getNumeroMedicoCabecera());
          dtoabuelo.setDTOobraSocial(dto);
-         
+         }
          listaDTOAbuelo.add(dtoabuelo);
      }
      
@@ -164,7 +177,7 @@ public class ExpertoABMAbuelos {
          dtoabuelo.setTalla(paciente.getTalla());
          dtoabuelo.setId(paciente.getId());
          dtoabuelo.setFechadeNacimiento(paciente.getFechadeNacimiento());
-         
+         if(paciente.getObraSocial() != null){
          DTOObraSocial dto = new DTOObraSocial();
          dto.setCredencialDeAfiliacion(paciente.getObraSocial().getCredencialDeAfiliacion());
          dto.setDisposicionNro(paciente.getObraSocial().getDisposicionNro());
@@ -186,13 +199,148 @@ public class ExpertoABMAbuelos {
          dto.setNumeroBeneficio(paciente.getObraSocial().getNumeroBeneficio());
          dto.setNumeroMedicoCabecera(paciente.getObraSocial().getNumeroMedicoCabecera());
          dtoabuelo.setDTOobraSocial(dto);
-         
+         }
         
      
      
      return dtoabuelo;
              
     }
+        
+        
+        public boolean iniciarModificar(DTOAbuelo abuelo,boolean obrasocialmodificada){
+        try{
+        Paciente paciente = (Paciente) HibernateUtil.getSession().createQuery("SELECT p FROM Paciente p WHERE p.id="+abuelo.getId()).uniqueResult();    
+        
+        if(obrasocialmodificada){
+            
+        ObraSocial obra = paciente.getObraSocial();
+        obra.setCredencialDeAfiliacion(abuelo.getDTOobraSocial().getCredencialDeAfiliacion());
+        obra.setDisposicionNro(abuelo.getDTOobraSocial().getDisposicionNro());
+        obra.setDomicilio(abuelo.getDTOobraSocial().getDomicilio());
+        obra.setEmitidoPor(abuelo.getDTOobraSocial().getEmitidoPor());
+        obra.setExpedienteNro(abuelo.getDTOobraSocial().getExpedienteNro());
+        obra.setFechaAltaCredencial(abuelo.getDTOobraSocial().getFechaAltaCredencial());
+        obra.setFechaEmisionCredencial(abuelo.getDTOobraSocial().getFechaEmisionCredencial());
+        obra.setFechaVencimientoCredencial(abuelo.getDTOobraSocial().getFechaVencimientoCredencial());
+        obra.setFechaVigenciaCredencial(abuelo.getDTOobraSocial().getFechaVigenciaCredencial());
+        obra.setFechaVigenciaMedico(abuelo.getDTOobraSocial().getFechaVigenciaMedico());
+        obra.setFechaVigenciaModulo(abuelo.getDTOobraSocial().getFechaVigenciaModulo());
+        obra.setGp(abuelo.getDTOobraSocial().getGp());
+        obra.setLocalidad(abuelo.getDTOobraSocial().getLocalidad());
+        obra.setModuloInternacion(abuelo.getDTOobraSocial().getModuloInternacion());
+        obra.setNombreObraSocial(abuelo.getDTOobraSocial().getNombreObraSocial());
+        obra.setNombremedicoCabecera(abuelo.getDTOobraSocial().getNombremedicoCabecera());
+        obra.setNroModulo(abuelo.getDTOobraSocial().getNroModulo());
+        obra.setNumeroBeneficio(abuelo.getDTOobraSocial().getNumeroBeneficio());
+        obra.setNumeroMedicoCabecera(abuelo.getDTOobraSocial().getNumeroMedicoCabecera());
+        paciente.setObraSocial(obra);
+        FachadaInterna.getInstancia().guardar(obra);
+            
+        }
+
+        
+       
+        
+            
+            paciente.setNombre(abuelo.getNombre());
+            paciente.setApellido(abuelo.getApellido());
+            paciente.setDni(abuelo.getDni());
+            paciente.setFechaBaja(null);
+            paciente.setFechadeNacimiento(abuelo.getFechadeNacimiento());
+            paciente.setPeso(abuelo.getPeso());
+            paciente.setTalla(abuelo.getTalla());
+            paciente.setEdad(CalcularEdad(abuelo.getFechadeNacimiento()));
+            
+            if(!"".equals(abuelo.getRutafotoPaciente())){
+             byte[] imagen = convertirStringAbyte(abuelo.getRutafotoPaciente());   
+             paciente.setFotoPaciente(imagen);   
+            }else{
+                
+             paciente.setFotoPaciente(abuelo.getFoto());   
+            }
+            
+            
+            FachadaInterna.getInstancia().guardar(paciente);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+        
+    }
+        
+        public boolean iniciarBaja(Long idAbuelo,String motivoBaja){
+            try{
+            Date fechahoy = new Date();    
+            Paciente paciente = (Paciente) HibernateUtil.getSession().createQuery("SELECT p FROM Paciente p WHERE p.id="+idAbuelo).uniqueResult();    
+            paciente.setFechaBaja(fechahoy);
+            paciente.setMotivoBaja(motivoBaja);
+            FachadaInterna.getInstancia().guardar(paciente);
+            
+            return true;
+                    }catch(Exception e){
+                        return false;
+                    }
+        }
+        
+        public List<DTOAbuelo> buscarbajas(){
+     List listaAbuelos = HibernateUtil.getSession().createQuery("SELECT p FROM Paciente p WHERE p.fechaBaja<>" + null).list();
+     List<DTOAbuelo> listaDTOAbuelo = new ArrayList<>();
+     for(Object a : listaAbuelos){
+         Paciente paciente = (Paciente) a;
+         DTOAbuelo dtoabuelo = new DTOAbuelo();
+         dtoabuelo.setApellido(paciente.getApellido());
+         dtoabuelo.setNombre(paciente.getNombre());
+         dtoabuelo.setDni(paciente.getDni());
+         dtoabuelo.setFechaAlta(paciente.getFechaAlta());
+         dtoabuelo.setFechaBaja(paciente.getFechaBaja());
+         dtoabuelo.setEdad(CalcularEdad(paciente.getFechadeNacimiento()));
+         dtoabuelo.setFoto(paciente.getFotoPaciente());
+         dtoabuelo.setPeso(paciente.getPeso());
+         dtoabuelo.setTalla(paciente.getTalla());
+         dtoabuelo.setId(paciente.getId());
+         dtoabuelo.setFechadeNacimiento(paciente.getFechadeNacimiento());
+         dtoabuelo.setMotivoBaja(paciente.getMotivoBaja());
+         if(paciente.getObraSocial() != null){
+         DTOObraSocial dto = new DTOObraSocial();
+         dto.setCredencialDeAfiliacion(paciente.getObraSocial().getCredencialDeAfiliacion());
+         dto.setDisposicionNro(paciente.getObraSocial().getDisposicionNro());
+         dto.setDomicilio(paciente.getObraSocial().getDomicilio());
+         dto.setEmitidoPor(paciente.getObraSocial().getEmitidoPor());
+         dto.setExpedienteNro(paciente.getObraSocial().getExpedienteNro());
+         dto.setFechaAltaCredencial(paciente.getObraSocial().getFechaAltaCredencial());
+         dto.setFechaEmisionCredencial(paciente.getObraSocial().getFechaEmisionCredencial());
+         dto.setFechaVencimientoCredencial(paciente.getObraSocial().getFechaVencimientoCredencial());
+         dto.setFechaVigenciaCredencial(paciente.getObraSocial().getFechaVigenciaCredencial());
+         dto.setFechaVigenciaMedico(paciente.getObraSocial().getFechaVigenciaMedico());
+         dto.setFechaVigenciaModulo(paciente.getObraSocial().getFechaVigenciaModulo());
+         dto.setGp(paciente.getObraSocial().getGp());
+         dto.setLocalidad(paciente.getObraSocial().getLocalidad());
+         dto.setModuloInternacion(paciente.getObraSocial().getModuloInternacion());
+         dto.setNombreObraSocial(paciente.getObraSocial().getNombreObraSocial());
+         dto.setNombremedicoCabecera(paciente.getObraSocial().getNombremedicoCabecera());
+         dto.setNroModulo(paciente.getObraSocial().getNroModulo());
+         dto.setNumeroBeneficio(paciente.getObraSocial().getNumeroBeneficio());
+         dto.setNumeroMedicoCabecera(paciente.getObraSocial().getNumeroMedicoCabecera());
+         dtoabuelo.setDTOobraSocial(dto);
+         }
+         listaDTOAbuelo.add(dtoabuelo);
+     }
+     
+     return listaDTOAbuelo;
+             
+    }
+        
+        public void iniciarAltaNuevamente(Long idAbuelo){
+          
+            Date fechahoy = new Date();    
+            Paciente paciente = (Paciente) HibernateUtil.getSession().createQuery("SELECT p FROM Paciente p WHERE p.id="+idAbuelo).uniqueResult();    
+            paciente.setFechaBaja(null);
+            paciente.setMotivoBaja(null);
+            FachadaInterna.getInstancia().guardar(paciente);
+            
+           
+        }
 
     
 

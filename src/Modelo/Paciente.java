@@ -42,6 +42,16 @@ public class Paciente implements Serializable {
     private Date fechaAlta;
     @Column
     private Date fechaBaja;
+    @Column
+    private String motivoBaja;
+
+    public String getMotivoBaja() {
+        return motivoBaja;
+    }
+
+    public void setMotivoBaja(String motivoBaja) {
+        this.motivoBaja = motivoBaja;
+    }
     @Lob
     @Column(name="foto",nullable=false)
     private byte[] fotoPaciente;
