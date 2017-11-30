@@ -10,6 +10,7 @@ import Modelo.Personal;
 import Modelo.Rol;
 import Modelo.Usuario;
 import Vistas.ABMAbuelo.PantallaPrincipalABMAbuelos;
+import Vistas.ABMEspecializacion.PantallaPrincipalABMEspecializacion;
 import Vistas.ABMRol.PantallaPrincipalABMRol;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -70,6 +71,8 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -194,10 +197,21 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
         jMenu2.add(jMenuItem2);
 
         jMenuItem3.setText("ABM Especializacion");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuItem4.setText("ABM Areas");
         jMenu2.add(jMenuItem4);
+
+        jMenuItem5.setText("ABM EstadoConsulta");
+        jMenu2.add(jMenuItem5);
+
+        jMenuItem6.setText("jMenuItem6");
+        jMenu2.add(jMenuItem6);
 
         jMenuBar1.add(jMenu2);
 
@@ -240,10 +254,15 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Formulario i = new Formulario(this,true);
+        SeleccionarAbuelo i = new SeleccionarAbuelo(this,true);
         
         i.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        PantallaPrincipalABMEspecializacion i = new PantallaPrincipalABMEspecializacion(this,true);
+        i.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,6 +335,8 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
