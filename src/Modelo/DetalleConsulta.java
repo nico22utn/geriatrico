@@ -23,7 +23,7 @@ public class DetalleConsulta implements Serializable{
     @Id @GeneratedValue
     private Long id;
     @Column
-    private Long nroRenglon;
+    private String detalleConsulta;
     @ManyToOne
     private Personal personal;
     @ManyToOne
@@ -32,6 +32,14 @@ public class DetalleConsulta implements Serializable{
     private TipoPrioridad tipoPrioridad;
 
     public DetalleConsulta() {
+    }
+
+    public String getDetalleConsulta() {
+        return detalleConsulta;
+    }
+
+    public void setDetalleConsulta(String detalleConsulta) {
+        this.detalleConsulta = detalleConsulta;
     }
 
     public Long getId() {
@@ -50,13 +58,6 @@ public class DetalleConsulta implements Serializable{
         this.consulta = consulta;
     }
 
-    public Long getNroRenglon() {
-        return nroRenglon;
-    }
-
-    public void setNroRenglon(Long nroRenglon) {
-        this.nroRenglon = nroRenglon;
-    }
 
     public Personal getPersonal() {
         return personal;

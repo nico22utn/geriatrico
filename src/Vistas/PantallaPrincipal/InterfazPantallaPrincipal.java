@@ -12,6 +12,7 @@ import Modelo.Usuario;
 import Vistas.ABMAbuelo.PantallaPrincipalABMAbuelos;
 import Vistas.ABMEspecializacion.PantallaPrincipalABMEspecializacion;
 import Vistas.ABMRol.PantallaPrincipalABMRol;
+import Vistas.Interconsultas.Interconsulta;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -90,7 +91,12 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
         textodeBienvenida.setFont(new java.awt.Font("Andalus", 1, 24)); // NOI18N
         textodeBienvenida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        botonRealizarInterconsulta.setText("Realizar Interconsulta");
+        botonRealizarInterconsulta.setText("Realizar sugerencia");
+        botonRealizarInterconsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRealizarInterconsultaActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -263,6 +269,11 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
         PantallaPrincipalABMEspecializacion i = new PantallaPrincipalABMEspecializacion(this,true);
         i.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void botonRealizarInterconsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRealizarInterconsultaActionPerformed
+        Interconsulta i = new Interconsulta(this,true);
+        i.setVisible(true);
+    }//GEN-LAST:event_botonRealizarInterconsultaActionPerformed
 
     /**
      * @param args the command line arguments

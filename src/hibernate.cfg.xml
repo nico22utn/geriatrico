@@ -30,6 +30,5 @@
     <mapping class="Modelo.EstadoDetalleConsulta"/>
     <mapping class="Modelo.DetalleConsulta"/>
     <mapping class="Modelo.DetalleConsultaEstado"/>
-
   </session-factory>
 </hibernate-configuration>
