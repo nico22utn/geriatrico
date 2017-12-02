@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import Controlador.DTO.DTOAbuelo;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -159,4 +160,39 @@ public class Paciente implements Serializable {
         this.edad = edad;
     }
     
+    public static DTOAbuelo buildDTO(Paciente paciente){
+        DTOAbuelo dto= new DTOAbuelo();
+        if(paciente.getId()!=null){
+        dto.setId(paciente.getId());
+        }
+        if(paciente.getApellido()!=null){
+        dto.setApellido(paciente.getApellido());
+        }
+        if(paciente.getDni()!=null){
+        dto.setDni(paciente.getDni());
+        }
+        dto.setEdad(paciente.getEdad());
+        if(paciente.getFechaAlta()!=null){
+        dto.setFechaAlta(paciente.getFechaAlta());
+        }
+        if(paciente.getFechadeNacimiento()!=null){
+        dto.setFechadeNacimiento(paciente.getFechadeNacimiento());
+        }
+        if(paciente.getFotoPaciente()!=null){
+        dto.setFoto(paciente.getFotoPaciente());
+        }
+        if(paciente.getNombre()!=null){
+        dto.setNombre(paciente.getNombre());    
+        }
+        if(paciente.getPeso()!=null){
+        dto.setPeso(paciente.getPeso()); 
+        }
+        if(paciente.getTalla()!=null){
+        dto.setTalla(paciente.getTalla()); 
+        }
+        if(paciente.getObraSocial()!=null){
+        dto.setDTOobraSocial(ObraSocial.buildDTOObraSocial(paciente.getObraSocial()));
+        }
+        return dto;
+    }
 }

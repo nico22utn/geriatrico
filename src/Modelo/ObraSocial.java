@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import Controlador.DTO.DTOObraSocial;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -227,5 +228,12 @@ public class ObraSocial implements Serializable{
         this.nombreObraSocial = nombreObraSocial;
     }
     
-    
+    public static DTOObraSocial buildDTOObraSocial(ObraSocial obraSocial){
+        DTOObraSocial dto= new DTOObraSocial();
+        if(obraSocial.getNombreObraSocial()!=null){
+        dto.setNombreObraSocial(obraSocial.getNombreObraSocial());
+        }
+        //Agregar los atributos restantes
+        return dto;
+    }
 }
