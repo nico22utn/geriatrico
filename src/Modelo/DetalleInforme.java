@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -29,7 +30,9 @@ public class DetalleInforme implements Serializable{
     private String informeMedico;
     @OneToOne(fetch = FetchType.LAZY)
     private Informe informe;
-    
+    @Lob
+    @Column(name="foto",nullable=false)
+    private byte[] fotoPaciente;
     public DetalleInforme() {
     }
 
@@ -56,6 +59,15 @@ public class DetalleInforme implements Serializable{
     public void setInforme(Informe informe) {
         this.informe = informe;
     }
+
+    public byte[] getFotoPaciente() {
+        return fotoPaciente;
+    }
+
+    public void setFotoPaciente(byte[] fotoPaciente) {
+        this.fotoPaciente = fotoPaciente;
+    }
+    
     
     
 }

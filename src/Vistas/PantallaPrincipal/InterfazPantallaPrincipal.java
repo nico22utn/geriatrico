@@ -5,6 +5,7 @@
  */
 package Vistas.PantallaPrincipal;
 
+import Controlador.ControladorAbuelo.ControladorAbuelo;
 import Modelo.Area;
 import Modelo.Personal;
 import Modelo.Rol;
@@ -13,14 +14,6 @@ import Vistas.ABMAbuelo.PantallaPrincipalABMAbuelos;
 import Vistas.ABMEspecializacion.PantallaPrincipalABMEspecializacion;
 import Vistas.ABMRol.PantallaPrincipalABMRol;
 import Vistas.Interconsultas.Interconsulta;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.ImageIcon;
 
 
 
@@ -260,8 +253,8 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        SeleccionarAbuelo i = new SeleccionarAbuelo(this,true);
-        
+        ControladorAbuelo controlador=new ControladorAbuelo();
+        SeleccionarAbuelo i = new SeleccionarAbuelo(this,true,controlador);
         i.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
