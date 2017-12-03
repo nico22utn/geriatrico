@@ -6,12 +6,14 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -22,14 +24,51 @@ import javax.persistence.Table;
 public class Consulta implements Serializable {
     @Id @GeneratedValue
     private Long id;
-    @Column
-    private Long numeroConsulta;
     @ManyToOne
     private TipoConsulta tipoConsulta;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaElaboracionConsulta;
+    @Column
+    private boolean visto;
+    @Column
+    private String nombrePersonaEnvia;
+
+    public String getNombrePersonaEnvia() {
+        return nombrePersonaEnvia;
+    }
+
+    public void setNombrePersonaEnvia(String nombrePersonaEnvia) {
+        this.nombrePersonaEnvia = nombrePersonaEnvia;
+    }
     @ManyToOne
-    private EstadoConsulta estadoConsulta;
+    private Personal personal;
+
+    public Personal getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(Personal personal) {
+        this.personal = personal;
+    }
+
+    public boolean isVisto() {
+        return visto;
+    }
+
+    public void setVisto(boolean visto) {
+        this.visto = visto;
+    }
+
+
+    public DetalleConsulta getDetalleconsulta() {
+        return detalleconsulta;
+    }
+
+    public void setDetalleconsulta(DetalleConsulta detalleconsulta) {
+        this.detalleconsulta = detalleconsulta;
+    }
     @ManyToOne
-    private Paciente paciente;
+    private DetalleConsulta detalleconsulta;
 
     public Consulta() {
     }
@@ -42,29 +81,15 @@ public class Consulta implements Serializable {
         this.id = id;
     }
 
-    public EstadoConsulta getEstadoConsulta() {
-        return estadoConsulta;
+    public Date getFechaElaboracionConsulta() {
+        return fechaElaboracionConsulta;
     }
 
-    public void setEstadoConsulta(EstadoConsulta estadoConsulta) {
-        this.estadoConsulta = estadoConsulta;
+    public void setFechaElaboracionConsulta(Date fechaElaboracionConsulta) {
+        this.fechaElaboracionConsulta = fechaElaboracionConsulta;
     }
 
-    public Long getNumeroConsulta() {
-        return numeroConsulta;
-    }
 
-    public void setNumeroConsulta(Long numeroConsulta) {
-        this.numeroConsulta = numeroConsulta;
-    }
-
-    public Paciente getPaciente() {
-        return paciente;
-    }
-
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
-    }
 
     public TipoConsulta getTipoConsulta() {
         return tipoConsulta;

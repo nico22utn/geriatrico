@@ -176,7 +176,11 @@ ControladorIniciarSesion controlador;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try{
                 new Login().setVisible(true);
+                }catch(Exception e){
+                    
+                }
             }
         });
     }

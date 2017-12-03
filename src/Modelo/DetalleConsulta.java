@@ -25,10 +25,6 @@ public class DetalleConsulta implements Serializable{
     @Column
     private String detalleConsulta;
     @ManyToOne
-    private Personal personal;
-    @ManyToOne
-    private Consulta consulta;
-    @ManyToOne
     private TipoPrioridad tipoPrioridad;
 
     public DetalleConsulta() {
@@ -50,22 +46,6 @@ public class DetalleConsulta implements Serializable{
         this.id = id;
     }
 
-    public Consulta getConsulta() {
-        return consulta;
-    }
-
-    public void setConsulta(Consulta consulta) {
-        this.consulta = consulta;
-    }
-
-
-    public Personal getPersonal() {
-        return personal;
-    }
-
-    public void setPersonal(Personal personal) {
-        this.personal = personal;
-    }
 
     public TipoPrioridad getTipoPrioridad() {
         return tipoPrioridad;

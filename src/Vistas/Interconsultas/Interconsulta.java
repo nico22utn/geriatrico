@@ -6,6 +6,7 @@
 package Vistas.Interconsultas;
 
 import Controlador.ControladorRealizarSugerencia.ControladorRealizarSugerencia;
+import Controlador.DTO.DTOConsulta;
 import Controlador.DTO.DTOPersonal;
 import Modelo.TipoPrioridad;
 import java.util.ArrayList;
@@ -23,25 +24,26 @@ DefaultTableModel modelo;
 ControladorRealizarSugerencia controlador;
 List<DTOPersonal> personalASeleccionar;
 List<DTOPersonal> personalSeleccionado;
-
+String nombrePersonalEnvia;
     /**
      * Creates new form Interconsulta
      */
-    public Interconsulta(java.awt.Frame parent, boolean modal) {
+    public Interconsulta(java.awt.Frame parent, boolean modal,Long idPersonal,String nombrePersonalEnvia) {
         super(parent, modal);
         controlador = new ControladorRealizarSugerencia();
+        this.nombrePersonalEnvia = nombrePersonalEnvia;
         personalASeleccionar = new ArrayList<>();
         personalSeleccionado = new ArrayList<>();
         initComponents();
         this.setLocationRelativeTo(null);
         modelo = (DefaultTableModel) jTable1.getModel();
-        llenarCombos();
+        llenarCombos(idPersonal);
         
     }
     
     
-    public void llenarCombos(){
-        List<DTOPersonal> listaPersonal = controlador.buscar();
+    public void llenarCombos(Long idPersonal){
+        List<DTOPersonal> listaPersonal = controlador.buscar(idPersonal);
         List<TipoPrioridad> listaPrioridad = controlador.buscarPrioridad();
         for(Object o : listaPrioridad){
         TipoPrioridad tp = (TipoPrioridad) o;   
@@ -91,6 +93,7 @@ List<DTOPersonal> personalSeleccionado;
         jLabel6 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jComboBox2 = new JComboBox();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -99,6 +102,11 @@ List<DTOPersonal> personalSeleccionado;
         jLabel1.setText("Elaborar sugerencia");
 
         jButton1.setText("Enviar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -138,6 +146,8 @@ List<DTOPersonal> personalSeleccionado;
             }
         });
 
+        jLabel7.setText("Por favor rellene todos los campos:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,6 +156,9 @@ List<DTOPersonal> personalSeleccionado;
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
@@ -172,16 +185,18 @@ List<DTOPersonal> personalSeleccionado;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addGap(68, 68, 68))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(291, 291, 291)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(342, 342, 342))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,6 +249,26 @@ List<DTOPersonal> personalSeleccionado;
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        List<DTOConsulta> list = new ArrayList<>();
+        for(DTOPersonal personal : personalSeleccionado){
+        DTOConsulta dto = new DTOConsulta();    
+        dto.setDetalleConsulta(jTextArea1.getText());
+        dto.setNombreArea(personal.getNombreArea());
+        dto.setNombreProfesional(personal.getNombrePersonal());
+        dto.setPrioridad(jComboBox2.getItemAt(jComboBox2.getSelectedIndex()));
+        list.add(dto);
+        }
+        if(controlador.realizarConsulta(list,nombrePersonalEnvia)){
+            JOptionPane.showMessageDialog(null, "Se envio con exito", "Exito", 1);
+            this.dispose();
+        }else{
+            
+            JOptionPane.showMessageDialog(null, "No se pudo realizar la consulta, debido a una desconexion con la base de datos, verifique su conexion a la red o contacte con el administrador", "Error", 0);
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -264,7 +299,7 @@ List<DTOPersonal> personalSeleccionado;
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Interconsulta dialog = new Interconsulta(new javax.swing.JFrame(), true);
+                Interconsulta dialog = new Interconsulta(new javax.swing.JFrame(), true, Long.parseLong("1"),"Diego");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -288,6 +323,7 @@ List<DTOPersonal> personalSeleccionado;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

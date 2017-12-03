@@ -5,6 +5,8 @@
  */
 package Vistas.PantallaPrincipal;
 
+import Controlador.ControladorConsultarSugerencia.ControladorConsultarSugerencia;
+import Controlador.DTO.DTOConsulta;
 import Modelo.Area;
 import Modelo.Personal;
 import Modelo.Rol;
@@ -13,14 +15,19 @@ import Vistas.ABMAbuelo.PantallaPrincipalABMAbuelos;
 import Vistas.ABMEspecializacion.PantallaPrincipalABMEspecializacion;
 import Vistas.ABMRol.PantallaPrincipalABMRol;
 import Vistas.Interconsultas.Interconsulta;
+import Vistas.Login;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 
 
@@ -29,19 +36,53 @@ import javax.swing.ImageIcon;
  * @author Maxi
  */
 public class InterfazPantallaPrincipal extends javax.swing.JFrame {
+ControladorConsultarSugerencia controlador;
+Personal personal;
 
     /**
      * Creates new form InterfazPantallaPrincipal
+     * @param usuario
      */
     public InterfazPantallaPrincipal(Usuario usuario) {
         initComponents();
+        personal = usuario.getPersonal();
+        controlador = new ControladorConsultarSugerencia();
         this.setLocationRelativeTo(null);
         this.setExtendedState(MAXIMIZED_BOTH);
         textodeBienvenida.setText("Bienvenido " + usuario.getPersonal().getNombre() + " " + usuario.getPersonal().getApellido() + " Al area " + usuario.getPersonal().getArea().getNombreArea());
-        
-       
-
+        start();
     }
+    
+    public void start(){
+        Timer timer = new Timer(2000, new ActionListener(){
+
+            public void actionPerformed(ActionEvent e) {
+            refrescar();    
+            }
+        });
+        
+        timer.start();
+        
+    }
+    
+    public void refrescar(){
+         System.gc();
+        jPanel5.removeAll();
+            int y = 0;
+        List<DTOConsulta> listdto = controlador.verificarSugerencias(personal);
+        for(DTOConsulta dto :listdto){
+            Sugerencia sugerencia = new Sugerencia(dto,controlador);
+            sugerencia.setVisible(true);
+            sugerencia.setBounds(0, y, 285, 105);
+            jPanel5.add(sugerencia);
+            jPanel5.validate();
+            y = y + 106;
+           
+            
+        }
+    }
+    
+    
     
   
 
@@ -68,6 +109,7 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -104,17 +146,7 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 288, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 387, Short.MAX_VALUE)
-        );
-
+        jPanel5.setLayout(null);
         jScrollPane2.setViewportView(jPanel5);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -134,6 +166,8 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/imagenes/historialclinico.jpg"))); // NOI18N
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -150,16 +184,16 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
                                 .addGap(11, 11, 11)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(114, 114, 114)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(botonRealizarInterconsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)))
             .addComponent(textodeBienvenida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
@@ -186,10 +220,19 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))))
-                .addGap(0, 274, Short.MAX_VALUE))
+                .addGap(0, 253, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Menu");
+
+        jMenuItem7.setText("Cerrar Sesion");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Administracion de la aplicacion");
@@ -271,9 +314,15 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void botonRealizarInterconsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRealizarInterconsultaActionPerformed
-        Interconsulta i = new Interconsulta(this,true);
+        Interconsulta i = new Interconsulta(this,true,personal.getId(),personal.getNombre() + " " + personal.getApellido());
         i.setVisible(true);
     }//GEN-LAST:event_botonRealizarInterconsultaActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        Login i = new Login();
+        i.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,6 +397,7 @@ public class InterfazPantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;

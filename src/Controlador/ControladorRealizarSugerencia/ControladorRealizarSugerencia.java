@@ -5,6 +5,7 @@
  */
 package Controlador.ControladorRealizarSugerencia;
 
+import Controlador.DTO.DTOConsulta;
 import Controlador.DTO.DTOPersonal;
 import Controlador.Persistencia.FachadaInterna;
 import Modelo.ExpertoRealizarSugerencia;
@@ -19,17 +20,22 @@ public class ControladorRealizarSugerencia {
     
     ExpertoRealizarSugerencia experto = new ExpertoRealizarSugerencia();
     
-    public List<DTOPersonal> buscar(){
+    public List<DTOPersonal> buscar(Long idPersonal){
         FachadaInterna.getInstancia().iniciarTransaccion();
-        return experto.buscar();
+        return experto.buscar(idPersonal);
         
         
     }
     
     public List<TipoPrioridad> buscarPrioridad(){
         List<TipoPrioridad> lista = experto.buscarPrioridad();
-        FachadaInterna.getInstancia().finalizarTransaccion();
         return lista;
+    }
+    
+    public boolean realizarConsulta(List<DTOConsulta> dto,String nombrePersonalEnvia){
+        boolean exito = experto.realizarConsulta(dto,nombrePersonalEnvia);
+        FachadaInterna.getInstancia().finalizarTransaccion();
+        return exito;
     }
     
 }

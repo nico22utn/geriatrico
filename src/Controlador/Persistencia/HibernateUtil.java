@@ -5,6 +5,7 @@
  */
 package Controlador.Persistencia;
 
+import javax.swing.JOptionPane;
 import org.hibernate.*;
 import org.hibernate.boot.registry.*;
 import org.hibernate.cfg.*;
@@ -36,6 +37,8 @@ public class HibernateUtil{
         }catch (HibernateException ex){
             // Log the exception. 
             System.err.println("Initial SessionFactory creation failed." + ex);
+            JOptionPane.showMessageDialog(null, "Hubo un error al conectarse con la base de datos, revise si esta conectado a la red o contacte con el administrador", "Error al conectar con la base de datos", 0);
+
             throw new ExceptionInInitializerError(ex);
         }
     }

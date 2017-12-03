@@ -4,6 +4,7 @@ import java.util.*;
 import org.hibernate.*;
 import org.hibernate.criterion.*;
 import DTO.DTOCriterio;
+import javax.swing.JOptionPane;
 
 
 public class FachadaInterna
@@ -129,10 +130,15 @@ public class FachadaInterna
     }
 
     public void iniciarTransaccion (){
+        try{
         Transaction transaccion = HibernateUtil.getSession().getTransaction();
         if(transaccion.isActive() == false ){ //SI NO HAY UNA TRANSACCION, LA CREA
             HibernateUtil.getSession().beginTransaction();
-        }        
+        }
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Hubo un error al conectarse con la base de datos, revise si esta conectado a la red o contacte con el administrador", "Error al conectar con la base de datos", 0);
+        }
     }
 
     public void finalizarTransaccion (){        

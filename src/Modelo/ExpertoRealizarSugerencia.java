@@ -5,10 +5,13 @@
  */
 package Modelo;
 
+import Controlador.DTO.DTOConsulta;
 import Controlador.DTO.DTOEspecializacion;
 import Controlador.DTO.DTOPersonal;
+import Controlador.Persistencia.FachadaInterna;
 import Controlador.Persistencia.HibernateUtil;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,8 +21,8 @@ import java.util.List;
 public class ExpertoRealizarSugerencia {
     
     
-    public List<DTOPersonal> buscar(){
-        List<Object> listaPersonal = HibernateUtil.getSession().createQuery("SELECT p FROM Personal p WHERE p.fechaBaja=" + null).list();
+    public List<DTOPersonal> buscar(Long idPersonal){
+        List<Object> listaPersonal = HibernateUtil.getSession().createQuery("SELECT p FROM Personal p WHERE p.id <> :id AND p.fechaBaja=" + null).setParameter("id", idPersonal).list();
         List<DTOPersonal> listadtoPersonal = new ArrayList<>();
         for(Object personal : listaPersonal){
             Personal personalencontrado = (Personal) personal;
@@ -57,6 +60,37 @@ public class ExpertoRealizarSugerencia {
         }
         
         return listaPrioridad;
+        
+        
+    }
+    
+    
+    public boolean realizarConsulta(List<DTOConsulta> listdto,String nombrePersonalEnvia){
+        try{
+        for(Object o : listdto){
+        DTOConsulta dto = (DTOConsulta) o;    
+        Date fechaHoy = new Date();
+        Consulta consulta = new Consulta();
+        DetalleConsulta detalle = new DetalleConsulta();
+        TipoPrioridad tipoPrioridad = (TipoPrioridad) HibernateUtil.getSession().createQuery("SELECT t FROM TipoPrioridad t WHERE t.nombre=:nombre").setParameter("nombre", dto.getPrioridad()).uniqueResult();
+        Personal personal = (Personal) HibernateUtil.getSession().createQuery("SELECT p FROM Personal p WHERE p.nombre=:nombre").setParameter("nombre", dto.getNombreProfesional()).uniqueResult();
+        detalle.setTipoPrioridad(tipoPrioridad);
+        detalle.setDetalleConsulta(dto.getDetalleConsulta());
+        consulta.setDetalleconsulta(detalle);
+        consulta.setFechaElaboracionConsulta(fechaHoy);
+        consulta.setVisto(false);
+        consulta.setPersonal(personal);
+        consulta.setNombrePersonaEnvia(nombrePersonalEnvia);
+        FachadaInterna.getInstancia().guardar(detalle);  
+        FachadaInterna.getInstancia().guardar(consulta);    
+        }    
+
+        return true;
+        }catch(Exception e){
+           return false; 
+        }
+        
+        
         
         
     }
