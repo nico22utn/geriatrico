@@ -116,6 +116,12 @@ String nombrePersonalEnvia;
 
         jLabel3.setText("Elija al profesional/es que desea enviar esta sugerencia:");
 
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         jLabel4.setText("Establecer prioridad del mensaje:");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -249,6 +255,7 @@ String nombrePersonalEnvia;
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
+<<<<<<< HEAD
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         List<DTOConsulta> list = new ArrayList<>();
         for(DTOPersonal personal : personalSeleccionado){
@@ -268,6 +275,11 @@ String nombrePersonalEnvia;
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
+=======
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+>>>>>>> ebe51f9fcf9b072f55865b7dcb6577d1c043dc95
 
     /**
      * @param args the command line arguments

@@ -5,21 +5,32 @@
  */
 package Vistas.PantallaPrincipal;
 
+import Controlador.ControladorAbuelo.ControladorAbuelo;
+import Controlador.DTO.DTOAbuelo;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Maxi
  */
 public class SeleccionarAbuelo extends javax.swing.JDialog {
-boolean existeAbuelo;
+    ControladorAbuelo controlador;
+    private Long id;
     /**
      * Creates new form SeleccionarAbuelo
      */
-    public SeleccionarAbuelo(java.awt.Frame parent, boolean modal) {
+    public SeleccionarAbuelo(java.awt.Frame parent, boolean modal,ControladorAbuelo controlador) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
-        existeAbuelo = false;
-        jPanel1.setVisible(existeAbuelo);
+        this.controlador=controlador;
+        jPanel1.setVisible(false);
     }
 
     /**
@@ -37,7 +48,6 @@ boolean existeAbuelo;
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        LabelNombredelPaciente = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -47,6 +57,7 @@ boolean existeAbuelo;
         textPeso = new javax.swing.JLabel();
         textTalla = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -79,9 +90,6 @@ boolean existeAbuelo;
             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        LabelNombredelPaciente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LabelNombredelPaciente.setText("nombre del paciente");
-
         jLabel7.setText("DNI: ");
 
         jLabel10.setText("jLabel10");
@@ -105,19 +113,20 @@ boolean existeAbuelo;
             }
         });
 
+        jLabel6.setText("jLabel6");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(LabelNombredelPaciente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -135,7 +144,7 @@ boolean existeAbuelo;
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(textTalla)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
                         .addComponent(jButton3)
                         .addGap(113, 113, 113))))
         );
@@ -160,7 +169,7 @@ boolean existeAbuelo;
                                 .addComponent(jLabel4)
                                 .addComponent(textTalla)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(LabelNombredelPaciente)
+                .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -185,12 +194,40 @@ boolean existeAbuelo;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        existeAbuelo = true;
-        jPanel1.setVisible(existeAbuelo);
+        //Buscar abuelo
+        DTOAbuelo dto=controlador.buscarPorDNI(textDNI.getText());
+        if(dto!=null){
+            //Importante para poder ir a la otra ventana.
+            id=dto.getId();
+            //Parte Grafica
+            textObraSocial.setText(dto.getDTOobraSocial().getNombreObraSocial());
+            textPeso.setText(dto.getPeso().toString()+" kg");
+            textTalla.setText(dto.getTalla().toString());
+            jLabel10.setText(dto.getDni());
+            jLabel6.setText(dto.getNombre()+" "+dto.getApellido());
+            //Foto
+        if(dto.getFoto()!=null){
+            byte[] imagenbyte = dto.getFoto();
+            BufferedImage img = null;
+        try{ 
+          img = ImageIO.read(new ByteArrayInputStream(imagenbyte));
+          Image imagen = img;
+          imagen = imagen.getScaledInstance(130, 130, imagen.SCALE_DEFAULT);
+          jLabel5.setIcon(new ImageIcon(imagen));
+        }catch(IOException e){
+            System.out.println("error");
+        }
+        }
+            jPanel1.setVisible(true);           
+        }
+        else if(dto==null){
+            JOptionPane.showMessageDialog(rootPane, "Error. Documento ingresado incorrecto");
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Formulario i = new Formulario(null,true);
+        Formulario i = new Formulario(null,true,id);
         i.setVisible(true);
         this.dispose();
         
@@ -226,20 +263,11 @@ boolean existeAbuelo;
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                SeleccionarAbuelo dialog = new SeleccionarAbuelo(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LabelNombredelPaciente;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -250,6 +278,7 @@ boolean existeAbuelo;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;

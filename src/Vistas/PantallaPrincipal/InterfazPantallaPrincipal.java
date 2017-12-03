@@ -5,8 +5,12 @@
  */
 package Vistas.PantallaPrincipal;
 
+<<<<<<< HEAD
 import Controlador.ControladorConsultarSugerencia.ControladorConsultarSugerencia;
 import Controlador.DTO.DTOConsulta;
+=======
+import Controlador.ControladorAbuelo.ControladorAbuelo;
+>>>>>>> ebe51f9fcf9b072f55865b7dcb6577d1c043dc95
 import Modelo.Area;
 import Modelo.Personal;
 import Modelo.Rol;
@@ -15,6 +19,7 @@ import Vistas.ABMAbuelo.PantallaPrincipalABMAbuelos;
 import Vistas.ABMEspecializacion.PantallaPrincipalABMEspecializacion;
 import Vistas.ABMRol.PantallaPrincipalABMRol;
 import Vistas.Interconsultas.Interconsulta;
+<<<<<<< HEAD
 import Vistas.Login;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,6 +33,8 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
+=======
+>>>>>>> ebe51f9fcf9b072f55865b7dcb6577d1c043dc95
 
 
 
@@ -303,8 +310,8 @@ Personal personal;
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        SeleccionarAbuelo i = new SeleccionarAbuelo(this,true);
-        
+        ControladorAbuelo controlador=new ControladorAbuelo();
+        SeleccionarAbuelo i = new SeleccionarAbuelo(this,true,controlador);
         i.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
